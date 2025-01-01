@@ -4,11 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>m-port</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>ようこそ m-port へ！</h1>
-    <p>アカウント名を入力してください。</p>
-    <input type="text" id="account-name" placeholder="アカウント名">
-    <button>ログイン</button>
+    <h1>m-portへようこそ！</h1>
+    
+    <!-- ユーザー登録フォーム -->
+    <form id="signup-form">
+        <label for="email">メールアドレス:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="password">パスワード:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="username">アカウント名:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <button type="submit">登録</button>
+    </form>
+
+    <!-- e-wisdom セクション -->
+    <div id="wisdom-section">
+        <h2>疑問を投稿する</h2>
+        <textarea id="question-input" placeholder="質問を入力..."></textarea><br>
+        <button id="post-question-btn">投稿</button>
+    </div>
+    <div id="question-list"></div>
+
+    <!-- 質問の詳細と回答セクション -->
+    <div id="question-detail">
+        <h3 id="question-title">質問のタイトル</h3>
+        <p id="question-description">質問の内容</p>
+        <textarea id="answer-input" placeholder="あなたの回答を入力..."></textarea><br>
+        <button id="submit-answer-btn">回答する</button>
+        <div id="answers-list"></div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
