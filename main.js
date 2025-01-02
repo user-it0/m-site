@@ -1,17 +1,21 @@
 let userData = {};  // ユーザー情報
 let friends = [];    // 友達リスト
 let currentChat = null;  // 現在のトーク相手
+let usersList = []; // ユーザー情報を保存するリスト
 
 // ユーザーがログイン
 function loginUser() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  // ここでは簡単なチェック（例: 空でないこと）を行います。実際のアプリケーションではサーバーとの認証が必要です。
+  // ユーザーのメールアドレスとパスワードをリストに保存
   if (email && password) {
-    userData = { email, password };  // 実際にはサーバーでチェックするべきです。
-    console.log("ログイン情報:", userData);
-    
+    userData = { email, password };  // 実際にはサーバーで保存処理を行うべきです。
+    usersList.push(userData);
+
+    // ファイルに保存（実際のファイル操作はサーバーサイドで処理）
+    console.log("ユーザー情報:", usersList);
+
     // 画面遷移
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("select-screen").style.display = "block";
