@@ -1,42 +1,75 @@
-// ユーザー登録フォームの処理
-document.getElementById("signup-form").addEventListener("submit", function(event) {
-    event.preventDefault();
+let userData = {};  // ユーザー情報
+let friends = [];    // 友達リスト
+let currentChat = null;  // 現在のトーク相手
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const username = document.getElementById("username").value;
+// ユーザー登録
+function registerUser() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const username = document.getElementById("username").value;
 
-    // サイト作成者への通知（例: ログに出力）
-    console.log("新しいユーザーが登録されました:");
-    console.log("メールアドレス:", email);
-    console.log("パスワード:", password);
-    console.log("アカウント名:", username);
+  userData = { email, password, username };
+  console.log("ユーザー登録情報:", userData);
+  
+  // 画面遷移
+  document.getElementById("register-screen").style.display = "none";
+  document.getElementById("program-screen").style.display = "block";
+}
 
-    alert("登録が完了しました！");
-});
+// e-wisdom機能
+function showWisdom() {
+  document.getElementById("e-wisdom-screen").style.display = "block";
+  document.getElementById("e-line-screen").style.display = "none";
+}
 
-// 疑問を投稿する機能
-document.getElementById("post-question-btn").addEventListener("click", function() {
-    const question = document.getElementById("question-input").value;
-    if (question) {
-        const questionDiv = document.createElement("div");
-        questionDiv.textContent = question;
-        document.getElementById("question-list").appendChild(questionDiv);
-        document.getElementById("question-input").value = '';  // 入力をクリア
-    } else {
-        alert("質問を入力してください。");
-    }
-});
+// 質問投稿
+function postQuestion() {
+  const question = document.getElementById("question-input").value;
+  const questionList = document.getElementById("question-list");
+  
+  const listItem = document.createElement("li");
+  listItem.textContent = question;
+  questionList.appendChild(listItem);
 
-// 質問への回答機能
-document.getElementById("submit-answer-btn").addEventListener("click", function() {
-    const answer = document.getElementById("answer-input").value;
-    if (answer) {
-        const answerDiv = document.createElement("div");
-        answerDiv.textContent = answer;
-        document.getElementById("answers-list").appendChild(answerDiv);
-        document.getElementById("answer-input").value = '';  // 入力をクリア
-    } else {
-        alert("回答を入力してください。");
-    }
-});
+  document.getElementById("question-input").value = "";  // 入力欄をクリア
+}
+
+// e-line機能
+function showLine() {
+  document.getElementById("e-line-screen").style.display = "block";
+  document.getElementById("e-wisdom-screen").style.display = "none";
+}
+
+// 友達リクエスト送信
+function sendRequest() {
+  const friendName = document.getElementById("friend-input").value;
+  const friendsList = document.getElementById("friends-list");
+  
+  if (!friends.includes(friendName)) {
+    friends.push(friendName);  // 友達リストに追加
+    const listItem = document.createElement("li");
+    listItem.textContent = friendName;
+    friendsList.appendChild(listItem);
+  }
+  
+  document.getElementById("friend-input").value = "";  // 入力欄をクリア
+}
+
+// 友達とトーク開始
+function startChat(friendName) {
+  currentChat = friendName;
+  document.getElementById("chat-box").style.display = "block";
+  document.getElementById("messages").innerHTML = "";  // チャットの内容をリセット
+}
+
+// メッセージ送信
+function sendMessage() {
+  const message = document.getElementById("message-input").value;
+  const messagesDiv = document.getElementById("messages");
+
+  const messageDiv = document.createElement("div");
+  messageDiv.textContent = `${userData.username}: ${message}`;
+  messagesDiv.appendChild(messageDiv);
+
+  document.getElementById("message-input").value = "";  // 入力欄をクリア
+}

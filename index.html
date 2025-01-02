@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>m-port</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>m-port</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>m-portへようこそ！</h1>
-    
-    <!-- ユーザー登録フォーム -->
-    <form id="signup-form">
-        <label for="email">メールアドレス:</label>
-        <input type="email" id="email" name="email" required><br>
-
-        <label for="password">パスワード:</label>
-        <input type="password" id="password" name="password" required><br>
-
-        <label for="username">アカウント名:</label>
-        <input type="text" id="username" name="username" required><br>
-
-        <button type="submit">登録</button>
-    </form>
-
-    <!-- e-wisdom セクション -->
-    <div id="wisdom-section">
-        <h2>疑問を投稿する</h2>
-        <textarea id="question-input" placeholder="質問を入力..."></textarea><br>
-        <button id="post-question-btn">投稿</button>
-    </div>
-    <div id="question-list"></div>
-
-    <!-- 質問の詳細と回答セクション -->
-    <div id="question-detail">
-        <h3 id="question-title">質問のタイトル</h3>
-        <p id="question-description">質問の内容</p>
-        <textarea id="answer-input" placeholder="あなたの回答を入力..."></textarea><br>
-        <button id="submit-answer-btn">回答する</button>
-        <div id="answers-list"></div>
+  <div id="app">
+    <!-- ユーザー登録画面 -->
+    <div id="register-screen">
+      <h1>m-port 登録</h1>
+      <input type="text" id="email" placeholder="メールアドレス">
+      <input type="password" id="password" placeholder="パスワード">
+      <input type="text" id="username" placeholder="アカウント名">
+      <button onclick="registerUser()">新規作成</button>
     </div>
 
-    <script src="main.js"></script>
+    <!-- プログラム画面 -->
+    <div id="program-screen" style="display: none;">
+      <button onclick="showWisdom()">e-wisdom</button>
+      <button onclick="showLine()">e-line</button>
+
+      <!-- e-wisdom -->
+      <div id="e-wisdom-screen" style="display: none;">
+        <input type="text" id="question-input" placeholder="質問を入力">
+        <button onclick="postQuestion()">質問投稿</button>
+        <ul id="question-list"></ul>
+      </div>
+
+      <!-- e-line -->
+      <div id="e-line-screen" style="display: none;">
+        <input type="text" id="friend-input" placeholder="友達のユーザー名">
+        <button onclick="sendRequest()">リクエスト送信</button>
+        <ul id="friends-list"></ul>
+        <div id="chat-box" style="display: none;">
+          <h2>トーク</h2>
+          <div id="messages"></div>
+          <input type="text" id="message-input" placeholder="メッセージを入力">
+          <button onclick="sendMessage()">送信</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
 </body>
 </html>
