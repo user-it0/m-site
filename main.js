@@ -72,6 +72,7 @@ document.getElementById("sendRequestBtn").addEventListener("click", function() {
 });
 
 function showProgramScreen() {
+    // ログイン画面とアカウント作成画面を非表示にし、プログラム画面を表示
     document.querySelector(".login-screen").style.display = "none";
     document.querySelector(".account-creation-screen").style.display = "none";
     document.querySelector(".program-screen").style.display = "flex";
