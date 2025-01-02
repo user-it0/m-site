@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>m-port</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app">
+    <!-- 初回ログイン画面 -->
+    <div id="first-login-screen" class="container">
+        <h1>初回ログイン</h1>
+        <input type="email" id="email" placeholder="メールアドレス" required>
+        <input type="password" id="email-password" placeholder="メールアドレス用パスワード" required>
+        <input type="text" id="username" placeholder="ユーザー名" required>
+        <input type="password" id="site-password" placeholder="サイト内パスワード" required>
+        <button onclick="createAccount()">アカウント作成</button>
+        <p id="first-login-error" style="color:red; display:none;">メールアドレスまたはパスワードが間違っています。</p>
+    </div>
+
     <!-- ログイン画面 -->
-    <div id="login-screen">
-      <h1>m-port ログイン</h1>
-      <input type="text" id="email" placeholder="メールアドレス">
-      <input type="password" id="password" placeholder="パスワード">
-      <button onclick="loginUser()">ログイン</button>
-      <p id="login-error" style="color: red; display: none;">メールアドレスまたはパスワードが間違っています。</p>
+    <div id="login-screen" class="container" style="display:none;">
+        <h1>ログイン</h1>
+        <input type="text" id="login-username" placeholder="ユーザー名" required>
+        <input type="password" id="login-site-password" placeholder="サイト内パスワード" required>
+        <button onclick="loginUser()">ログイン</button>
+        <p id="login-error" style="color:red; display:none;">ユーザー名またはパスワードが間違っています。</p>
     </div>
 
-    <!-- e-wisdom と e-line と e-game の選択画面 -->
-    <div id="select-screen" style="display: none;">
-      <button onclick="showWisdom()">e-wisdom</button>
-      <button onclick="showLine()">e-line</button>
-      <button onclick="showGame()">e-game</button>
-      <button onclick="goBackToLogin()">ログアウト</button>
+    <!-- 選択ページ -->
+    <div id="select-screen" class="container" style="display:none;">
+        <h1>選択ページ</h1>
+        <button onclick="goToWisdom()">e-wisdom</button>
+        <button onclick="goToLine()">e-line</button>
+        <button onclick="goToGame()">e-game</button>
     </div>
 
-    <!-- e-wisdom -->
-    <div id="e-wisdom-screen" style="display: none;">
-      <input type="text" id="question-input" placeholder="質問を入力">
-      <button onclick="postQuestion()">質問投稿</button>
-      <ul id="question-list"></ul>
-      <button onclick="goBackToSelect()">戻る</button>
+    <!-- e-wisdom ページ -->
+    <div id="wisdom-screen" class="container" style="display:none;">
+        <h1>e-wisdom</h1>
+        <textarea id="wisdom-question" placeholder="質問を入力"></textarea>
+        <button onclick="submitWisdomQuestion()">質問を投稿</button>
+        <div id="wisdom-answers"></div>
+        <button onclick="goBackToSelect()">戻る</button>
     </div>
 
-    <!-- e-line -->
-    <div id="e-line-screen" style="display: none;">
-      <input type="text" id="friend-input" placeholder="友達のユーザー名">
-      <button onclick="sendRequest()">リクエスト送信</button>
-      <ul id="friends-list"></ul>
-      <div id="chat-box" style="display: none;">
-        <h2>トーク</h2>
-        <div id="messages"></div>
-        <input type="text" id="message-input" placeholder="メッセージを入力">
-        <button onclick="sendMessage()">送信</button>
-      </div>
-      <button onclick="goBackToSelect()">戻る</button>
+    <!-- e-line ページ -->
+    <div id="line-screen" class="container" style="display:none;">
+        <h1>e-line</h1>
+        <div id="line-chat">
+            <div class="message-box" id="message-box"></div>
+            <input type="text" id="line-input" placeholder="メッセージを入力">
+            <button onclick="sendMessage()">送信</button>
+        </div>
+        <button onclick="goBackToSelect()">戻る</button>
     </div>
 
-    <!-- e-game -->
-    <div id="e-game-screen" style="display: none;">
-      <h2>e-game</h2>
-      <div id="game-list">
-        <!-- ゲームが表示される場所 -->
-      </div>
-      <button onclick="addGame()">ゲーム追加</button>
-      <button onclick="goBackToSelect()">戻る</button>
-    </div>
-  </div>
-
-  <script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

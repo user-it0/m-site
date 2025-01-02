@@ -1,81 +1,73 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff;  /* 薄い青色 */
+    background-color: #f0f8ff;
     margin: 0;
     padding: 0;
+}
+
+.container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    box-sizing: border-box;
-  }
-  
-  #app {
-    width: 100%;
-    max-width: 400px;
     padding: 20px;
-    box-sizing: border-box;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  input[type="text"], input[type="password"] {
-    width: 100%;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+input, button, textarea {
+    margin: 10px;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #4CAF50;
+    width: 250px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4caf50;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #45a049;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  ul li {
-    padding: 8px;
-    background-color: #f2f2f2;
-    margin: 5px 0;
-    border-radius: 5px;
-  }
-  
-  button:active {
-    background-color: #45a049;
-  }
-  
-  #game-list .game-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+}
+
+#login-error, #first-login-error {
+    color: red;
+    font-size: 14px;
+}
+
+#message-box {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #ccc;
     margin-bottom: 10px;
+    overflow-y: auto;
+}
+
+.message {
     padding: 10px;
-  }
-  
-  #game-list .game-item button {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  #game-list .game-item button:hover {
-    background-color: #45a049;
-  }  
+    background-color: #d3f4f7;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    input, button, textarea {
+        width: 80%;
+    }
+}
