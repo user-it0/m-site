@@ -7,16 +7,15 @@ let questions = [];  // 質問リスト
 // ログイン
 function login() {
     const username = document.getElementById("login-username").value;
-    const password = document.getElementById("login-password").value;
-    
-    const user = users.find(u => u.username === username && u.password === password);
+
+    const user = users.find(u => u.username === username);
     
     if (user) {
         currentUser = user;
         alert(`${username}さん、ようこそ！`);
         goToEwisdom();
     } else {
-        alert("ユーザー名またはパスワードが間違っています。");
+        alert("ユーザー名が間違っています。");
     }
 }
 
@@ -128,14 +127,15 @@ function renderRequestList() {
 function acceptRequest(index) {
     const request = talkRequests.splice(index, 1)[0];
     talkList.push(request.from);
-    alert(`${request.from} とトーク可能になりました。`);
+    alert(`${request.from} さんからのリクエストを受け入れました。`);
     renderTalkList();
+    renderRequestList();
 }
 
 // トークリクエストを拒否する
 function rejectRequest(index) {
-    talkRequests.splice(index, 1);
-    alert("トークリクエストを拒否しました。");
+    const request = talkRequests.splice(index, 1)[0];
+    alert(`${request.from} さんのリクエストが拒否されました。`);
     renderRequestList();
 }
 
