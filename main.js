@@ -7,15 +7,16 @@ let questions = [];  // 質問リスト
 // ログイン
 function login() {
     const username = document.getElementById("login-username").value;
-
-    const user = users.find(u => u.username === username);
+    const password = document.getElementById("login-password").value;
+    
+    const user = users.find(u => u.username === username && u.password === password);
     
     if (user) {
         currentUser = user;
         alert(`${username}さん、ようこそ！`);
         goToEwisdom();
     } else {
-        alert("ユーザー名が間違っています。");
+        alert("ユーザー名またはパスワードが間違っています。");
     }
 }
 

@@ -9,16 +9,18 @@
 <body>
 
     <!-- ログイン画面 -->
-    <div id="login-screen" class="screen active">
+    <div id="login-screen" class="screen active login-background">
         <h2>ログイン</h2>
         <label for="username">ユーザー名:</label>
         <input type="text" id="login-username" placeholder="ユーザー名">
+        <label for="password">パスワード:</label>
+        <input type="password" id="login-password" placeholder="パスワード">
         <button onclick="login()">ログイン</button>
         <button onclick="goToRegister()">新規登録</button>
     </div>
 
     <!-- 新規登録画面 -->
-    <div id="register-screen" class="screen hidden">
+    <div id="register-screen" class="screen hidden register-background">
         <h2>新規登録</h2>
         <label for="new-username">ユーザー名:</label>
         <input type="text" id="new-username" placeholder="ユーザー名">
