@@ -4,43 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>m-port</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="login-screen" id="login-screen">
-            <h1>m-port</h1>
-            <input type="text" id="username" placeholder="ユーザー名">
-            <button id="create-account">新規作成</button>
-        </div>
-
-        <div class="signup-screen" id="signup-screen">
-            <h2>アカウント作成</h2>
-            <input type="text" id="new-username" placeholder="新規ユーザー名">
-            <input type="password" id="password" placeholder="パスワード">
-            <button id="signup-btn">作成</button>
-        </div>
-
-        <div class="program-screen" id="program-screen" style="display:none;">
-            <button id="e-wisdom-btn">e-wisdom</button>
-            <button id="e-line-btn">e-line</button>
-        </div>
-
-        <div class="e-wisdom-screen" id="e-wisdom-screen" style="display:none;">
-            <h3>疑問を投稿する</h3>
-            <input type="text" id="question-input" placeholder="質問を入力">
-            <button id="post-question">投稿</button>
-            <div id="questions-list"></div>
-        </div>
-
-        <div class="e-line-screen" id="e-line-screen" style="display:none;">
-            <h3>トーク</h3>
-            <input type="text" id="search-user" placeholder="ユーザーを検索">
-            <button id="send-request">リクエスト送信</button>
-            <div id="request-list"></div>
-        </div>
+    <!-- アカウント作成 / ログイン画面 -->
+    <div id="login-screen">
+        <h2>Welcome to m-port</h2>
+        <input type="text" id="username" placeholder="ユーザー名" />
+        <button onclick="login()">ログイン</button>
+        <button onclick="showSignUp()">新規作成</button>
     </div>
 
-    <script src="scripts.js"></script>
+    <!-- 新規アカウント作成画面 -->
+    <div id="signup-screen" style="display: none;">
+        <h2>新規アカウント作成</h2>
+        <input type="text" id="new-username" placeholder="新しいユーザー名" />
+        <input type="password" id="password" placeholder="パスワード" />
+        <button onclick="createAccount()">アカウント作成</button>
+        <button onclick="backToLogin()">戻る</button>
+    </div>
+
+    <!-- メインプログラム画面 -->
+    <div id="program-screen" style="display: none;">
+        <h2>ようこそ、<span id="user-name"></span></h2>
+        <button onclick="showWisdom()">e-wisdom</button>
+        <button onclick="showLine()">e-line</button>
+    </div>
+
+    <!-- e-wisdom画面 -->
+    <div id="wisdom-screen" style="display: none;">
+        <h2>e-wisdom</h2>
+        <input type="text" id="question-input" placeholder="質問を入力してください" />
+        <button onclick="postQuestion()">質問を投稿</button>
+        <button onclick="backToProgram()">戻る</button>
+    </div>
+
+    <!-- e-line画面 -->
+    <div id="line-screen" style="display: none;">
+        <h2>e-line</h2>
+        <input type="text" id="friend-username" placeholder="友達のユーザー名" />
+        <button onclick="sendRequest()">リクエスト送信</button>
+        <button onclick="backToProgram()">戻る</button>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>

@@ -1,61 +1,31 @@
-/* 全体的なスタイル */
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f4f4f4;
-}
-
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1, h2, h3 {
     text-align: center;
+    padding: 20px;
 }
 
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+h2 {
+    font-size: 24px;
+}
+
+input {
+    margin: 10px;
+    padding: 8px;
+    font-size: 16px;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #f0f0f0;
 }
 
-button:disabled {
-    background-color: #ccc;
-}
-
-#questions-list, #request-list {
-    margin-top: 20px;
-}
-
-button#e-wisdom-btn, button#e-line-btn {
-    margin-top: 20px;
-}
-
-#e-wisdom-screen, #e-line-screen {
-    display: none;
+#login-screen, #signup-screen, #program-screen, #wisdom-screen, #line-screen {
+    display: block;
+    margin: 20px;
 }
