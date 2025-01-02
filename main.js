@@ -1,21 +1,18 @@
 let userData = {};  // ユーザー情報
 let friends = [];    // 友達リスト
-let currentChat = null;  // 現在のトーク相手
 let usersList = []; // ユーザー情報を保存するリスト
+let games = ["Draw a Perfect Circle", "オンラインオセロ"];  // ゲームリスト
 
 // ユーザーがログイン
 function loginUser() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  // ユーザーのメールアドレスとパスワードをリストに保存
   if (email && password) {
     userData = { email, password };  // 実際にはサーバーで保存処理を行うべきです。
     usersList.push(userData);
-
-    // ファイルに保存（実際のファイル操作はサーバーサイドで処理）
     console.log("ユーザー情報:", usersList);
-
+    
     // 画面遷移
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("select-screen").style.display = "block";
@@ -39,7 +36,7 @@ function postQuestion() {
   listItem.textContent = question;
   questionList.appendChild(listItem);
 
-  document.getElementById("question-input").value = "";  // 入力欄をクリア
+  document.getElementById("question-input").value = "";
 }
 
 // e-line画面
@@ -60,7 +57,7 @@ function sendRequest() {
     friendsList.appendChild(listItem);
   }
   
-  document.getElementById("friend-input").value = "";  // 入力欄をクリア
+  document.getElementById("friend-input").value = "";
 }
 
 // メッセージ送信
@@ -72,7 +69,29 @@ function sendMessage() {
   messageDiv.textContent = `${userData.email}: ${message}`;
   messagesDiv.appendChild(messageDiv);
 
-  document.getElementById("message-input").value = "";  // 入力欄をクリア
+  document.getElementById("message-input").value = "";
+}
+
+// e-game画面
+function showGame() {
+  document.getElementById("select-screen").style.display = "none";
+  document.getElementById("e-game-screen").style.display = "block";
+}
+
+// ゲーム開始
+function startGame(game) {
+  alert(`${game}を始めます！`);
+  // ゲームの処理を追加する場所
+}
+
+// ゲーム追加
+function addGame() {
+  const gameName = prompt("追加するゲームの名前を入力してください");
+  if (gameName) {
+    games.push(gameName);
+    alert(`${gameName} が追加されました！`);
+    console.log("現在のゲームリスト:", games);
+  }
 }
 
 // ログアウトしてログイン画面に戻る
@@ -80,6 +99,7 @@ function goBackToLogin() {
   document.getElementById("select-screen").style.display = "none";
   document.getElementById("e-wisdom-screen").style.display = "none";
   document.getElementById("e-line-screen").style.display = "none";
+  document.getElementById("e-game-screen").style.display = "none";
   document.getElementById("login-screen").style.display = "block";
 }
 
@@ -87,5 +107,6 @@ function goBackToLogin() {
 function goBackToSelect() {
   document.getElementById("e-wisdom-screen").style.display = "none";
   document.getElementById("e-line-screen").style.display = "none";
+  document.getElementById("e-game-screen").style.display = "none";
   document.getElementById("select-screen").style.display = "block";
 }

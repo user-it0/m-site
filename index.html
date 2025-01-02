@@ -16,10 +16,11 @@
       <button onclick="loginUser()">ログイン</button>
     </div>
 
-    <!-- e-wisdom と e-line の選択画面 -->
+    <!-- e-wisdom と e-line と e-game の選択画面 -->
     <div id="select-screen" style="display: none;">
       <button onclick="showWisdom()">e-wisdom</button>
       <button onclick="showLine()">e-line</button>
+      <button onclick="showGame()">e-game</button>
       <button onclick="goBackToLogin()">ログアウト</button>
     </div>
 
@@ -42,6 +43,15 @@
         <input type="text" id="message-input" placeholder="メッセージを入力">
         <button onclick="sendMessage()">送信</button>
       </div>
+      <button onclick="goBackToSelect()">戻る</button>
+    </div>
+
+    <!-- e-game -->
+    <div id="e-game-screen" style="display: none;">
+      <h2>e-game</h2>
+      <button onclick="startGame('Draw a Perfect Circle')">Draw a Perfect Circle</button>
+      <button onclick="startGame('オンラインオセロ')">オンラインオセロ</button>
+      <button onclick="addGame()">ゲーム追加</button>
       <button onclick="goBackToSelect()">戻る</button>
     </div>
   </div>

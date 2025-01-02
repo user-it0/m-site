@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     background-color: #e0f7fa;  /* 薄い青 */
     padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
   }
   
   #app {
@@ -24,27 +26,27 @@ body {
   button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-bottom: 10px; /* ボタン間の間隔 */
   }
   
   button:hover {
     background-color: #45a049;
   }
   
+  h1 {
+    text-align: center;
+  }
+  
   ul {
-    list-style-type: none;
-    padding: 0;
+    padding-left: 20px;
   }
   
-  #chat-box {
-    margin-top: 20px;
-  }
-  
-  #messages {
-    margin-bottom: 10px;
+  @media (max-width: 600px) {
+    #app {
+      padding: 15px;
+    }
   }  
