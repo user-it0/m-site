@@ -6,21 +6,30 @@ let games = [
   { name: "オンラインオセロ", description: "ユーザー同士のオセロ対戦。" }
 ];  // ゲームリスト
 
-// ユーザーがログイン
+// ユーザー情報をダミーデータとして作成（通常はサーバーで保存・取得する）
+function initializeUsers() {
+  usersList.push({ email: "user1@example.com", password: "password1" });
+  usersList.push({ email: "user2@example.com", password: "password2" });
+}
+
+// ログイン時にパスワード確認
 function loginUser() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  if (email && password) {
-    userData = { email, password };  // 実際にはサーバーで保存処理を行うべきです。
-    usersList.push(userData);
-    console.log("ユーザー情報:", usersList);
-    
-    // 画面遷移
+  const user = usersList.find(user => user.email === email && user.password === password);
+
+  if (user) {
+    userData = user;  // ユーザー情報を保存
+    console.log("ログイン成功:", userData);
+
+    // ログイン後の画面遷移
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("select-screen").style.display = "block";
+    document.getElementById("login-error").style.display = "none";
   } else {
-    alert("メールアドレスとパスワードを入力してください");
+    // ログイン失敗
+    document.getElementById("login-error").style.display = "block";
   }
 }
 
@@ -92,43 +101,49 @@ function displayGames() {
   games.forEach(game => {
     const gameDiv = document.createElement("div");
     gameDiv.classList.add("game-item");
-    gameDiv.innerHTML = `<h3>${game.name}</h3><p>${game.description}</p><button onclick="startGame('${game.name}')">ゲーム開始</button>`;
+
+    const gameName = document.createElement("h3");
+    gameName.textContent = game.name;
+    const gameDescription = document.createElement("p");
+    gameDescription.textContent = game.description;
+    
+    gameDiv.appendChild(gameName);
+    gameDiv.appendChild(gameDescription);
+
+    const playButton = document.createElement("button");
+    playButton.textContent = "プレイ";
+    playButton.onclick = () => alert(`ゲーム「${game.name}」をプレイします！`);
+
+    gameDiv.appendChild(playButton);
     gameListDiv.appendChild(gameDiv);
   });
 }
 
-// ゲーム開始
-function startGame(gameName) {
-  alert(`${gameName}を始めます！`);
-  // ゲームの処理を追加する場所
-}
-
 // ゲーム追加
 function addGame() {
-  const gameName = prompt("追加するゲームの名前を入力してください");
+  const gameName = prompt("ゲーム名を入力してください");
   const gameDescription = prompt("ゲームの説明を入力してください");
-
+  
   if (gameName && gameDescription) {
     games.push({ name: gameName, description: gameDescription });
-    alert(`${gameName} が追加されました！`);
-    console.log("現在のゲームリスト:", games);
     displayGames();  // ゲームリストを再表示
   }
 }
 
-// ログアウトしてログイン画面に戻る
+// ログアウト
 function goBackToLogin() {
   document.getElementById("select-screen").style.display = "none";
-  document.getElementById("e-wisdom-screen").style.display = "none";
-  document.getElementById("e-line-screen").style.display = "none";
-  document.getElementById("e-game-screen").style.display = "none";
   document.getElementById("login-screen").style.display = "block";
+  userData = {};  // ユーザー情報をクリア
 }
 
-// 「戻る」ボタンで選択画面に戻る
+// 選択画面に戻る
 function goBackToSelect() {
   document.getElementById("e-wisdom-screen").style.display = "none";
   document.getElementById("e-line-screen").style.display = "none";
   document.getElementById("e-game-screen").style.display = "none";
   document.getElementById("select-screen").style.display = "block";
 }
+
+// 初期化処理
+initializeUsers();
