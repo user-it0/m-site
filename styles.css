@@ -1,73 +1,75 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     padding: 20px;
+    background-color: #f0f0f0;
 }
 
-h1 {
-    margin-bottom: 20px;
+.screen {
+    display: none;
 }
 
-input, button, textarea {
-    margin: 10px;
-    padding: 10px;
-    width: 250px;
-    font-size: 16px;
+.screen.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 200px;
+    margin-top: 10px;
 }
 
 button {
-    background-color: #4caf50;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    cursor: pointer;
+    border-radius: 5px;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-textarea {
-    width: 100%;
-    height: 100px;
+.list {
+    margin-top: 20px;
 }
 
-#login-error, #first-login-error {
-    color: red;
-    font-size: 14px;
-}
-
-#message-box {
-    width: 100%;
-    height: 200px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    overflow-y: auto;
-}
-
-.message {
+.list-item {
     padding: 10px;
-    background-color: #d3f4f7;
-    margin-bottom: 5px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    max-width: 80%;
 }
 
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
+.list-item.request {
+    background-color: #ffebee; /* 薄い赤 */
+    cursor: pointer;
+}
 
-    input, button, textarea {
-        width: 80%;
-    }
+.list-item.talk {
+    background-color: #e3f2fd; /* 青系 */
+    cursor: pointer;
+}
+
+.confirm-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
 }

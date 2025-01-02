@@ -1,62 +1,59 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン画面</title>
+    <title>e-Platform</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 初回ログイン画面 -->
-    <div id="first-login-screen" class="container">
-        <h1>新規登録</h1>
-        <input type="email" id="email" placeholder="メールアドレス" required>
-        <input type="password" id="email-password" placeholder="メールアドレス用パスワード" required>
-        <input type="text" id="username" placeholder="ユーザー名" required>
-        <input type="password" id="site-password" placeholder="サイト内パスワード" required>
-        <button onclick="createAccount()">アカウント作成</button>
-        <p id="first-login-error" style="color:red; display:none;">メールアドレスまたはパスワードが間違っています。</p>
-        <p>既にアカウントをお持ちですか？ <a href="javascript:showLoginScreen()">ログイン</a></p>
-    </div>
 
     <!-- ログイン画面 -->
-    <div id="login-screen" class="container" style="display:none;">
-        <h1>ログイン</h1>
-        <input type="text" id="login-username" placeholder="ユーザー名" required>
-        <input type="password" id="login-site-password" placeholder="サイト内パスワード" required>
-        <button onclick="loginUser()">ログイン</button>
-        <p id="login-error" style="color:red; display:none;">ユーザー名またはパスワードが間違っています。</p>
-        <p>新規登録する場合は <a href="javascript:showFirstLoginScreen()">こちら</a> をクリック</p>
+    <div id="login-screen" class="screen">
+        <h2>ログイン</h2>
+        <label for="username">ユーザー名:</label>
+        <input type="text" id="login-username" placeholder="ユーザー名">
+        <label for="password">パスワード:</label>
+        <input type="password" id="login-password" placeholder="パスワード">
+        <button onclick="login()">ログイン</button>
+        <button onclick="goToRegister()">新規登録</button>
     </div>
 
-    <!-- 選択ページ -->
-    <div id="select-screen" class="container" style="display:none;">
-        <h1>選択ページ</h1>
-        <button onclick="goToWisdom()">e-wisdom</button>
-        <button onclick="goToLine()">e-line</button>
-        <button onclick="goToGame()">e-game</button>
+    <!-- 新規登録画面 -->
+    <div id="register-screen" class="screen hidden">
+        <h2>新規登録</h2>
+        <label for="new-username">ユーザー名:</label>
+        <input type="text" id="new-username" placeholder="ユーザー名">
+        <button onclick="register()">登録</button>
+        <button onclick="goToLogin()">ログイン画面に戻る</button>
     </div>
 
-    <!-- e-wisdom ページ -->
-    <div id="wisdom-screen" class="container" style="display:none;">
-        <h1>e-wisdom</h1>
-        <textarea id="wisdom-question" placeholder="質問を入力"></textarea>
-        <button onclick="submitWisdomQuestion()">質問を投稿</button>
-        <div id="wisdom-answers"></div>
-        <button onclick="goBackToSelect()">戻る</button>
-    </div>
+    <!-- e-wisdom画面 -->
+    <div id="e-wisdom-screen" class="screen hidden">
+        <h2>e-Wisdom</h2>
+        <button onclick="postQuestion()">質問・疑問を投稿する</button>
+        <button onclick="answerQuestion()">質問・疑問に答える</button>
+        <button onclick="goToLogin()">ログアウト</button>
 
-    <!-- e-line ページ -->
-    <div id="line-screen" class="container" style="display:none;">
-        <h1>e-line</h1>
-        <div id="line-chat">
-            <div class="message-box" id="message-box"></div>
-            <input type="text" id="line-input" placeholder="メッセージを入力">
-            <button onclick="sendMessage()">送信</button>
+        <div id="question-list" class="list hidden">
+            <h3>質問・疑問一覧</h3>
+            <div id="questions"></div>
         </div>
-        <button onclick="goBackToSelect()">戻る</button>
     </div>
 
-    <script src="main.js"></script>
+    <!-- e-line画面 -->
+    <div id="e-line-screen" class="screen hidden">
+        <h2>e-Line</h2>
+        <div id="request-section">
+            <input type="text" id="search-user" placeholder="ユーザー名を入力">
+            <button onclick="sendRequest()">リクエスト送信</button>
+        </div>
+        <h3>トークリクエスト</h3>
+        <div id="request-list" class="list"></div>
+        <h3>トーク可能なリスト</h3>
+        <div id="talk-list" class="list"></div>
+    </div>
+
+    <script src="scripts.js"></script>
 </body>
 </html>

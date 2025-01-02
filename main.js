@@ -1,104 +1,153 @@
-let userData = {};  // ユーザー情報
-let isFirstLogin = true;  // 初回ログインフラグ
-
-// 新規登録（アカウント作成）
-function createAccount() {
-    const email = document.getElementById("email").value;
-    const emailPassword = document.getElementById("email-password").value;
-    const username = document.getElementById("username").value;
-    const sitePassword = document.getElementById("site-password").value;
-
-    // メールアドレスとパスワードが正しいか確認（ダミーデータ）
-    if (email !== "test@example.com" || emailPassword !== "testpassword") {
-        document.getElementById("first-login-error").style.display = "block";
-        return;
-    }
-
-    // アカウント情報を保存
-    userData = {
-        email: email,
-        emailPassword: emailPassword,
-        username: username,
-        sitePassword: sitePassword
-    };
-
-    // アカウント作成成功後、ログイン画面に遷移
-    document.getElementById("first-login-screen").style.display = "none";
-    document.getElementById("login-screen").style.display = "block";
-    document.getElementById("first-login-error").style.display = "none";
-    isFirstLogin = false;
-}
+let users = [];  // ユーザー情報を格納
+let currentUser = null;  // 現在ログイン中のユーザー
+let talkRequests = [];  // トークリクエスト
+let talkList = [];  // トーク可能なユーザーリスト
+let questions = [];  // 質問リスト
 
 // ログイン
-function loginUser() {
+function login() {
     const username = document.getElementById("login-username").value;
-    const sitePassword = document.getElementById("login-site-password").value;
+    const password = document.getElementById("login-password").value;
+    
+    const user = users.find(u => u.username === username && u.password === password);
+    
+    if (user) {
+        currentUser = user;
+        alert(`${username}さん、ようこそ！`);
+        goToEwisdom();
+    } else {
+        alert("ユーザー名またはパスワードが間違っています。");
+    }
+}
 
-    // サイト内パスワードとユーザー名の確認
-    if (userData.username !== username || userData.sitePassword !== sitePassword) {
-        document.getElementById("login-error").style.display = "block";
+// 新規登録
+function register() {
+    const username = document.getElementById("new-username").value;
+
+    if (username) {
+        // 新規登録はパスワード不要で、ユーザー名のみ保存
+        users.push({ username, password: "" }); // パスワードフィールドを空にして保存
+        alert("登録が完了しました。ログインしてください。");
+        goToLogin();
+    } else {
+        alert("ユーザー名を入力してください。");
+    }
+}
+
+// ログイン画面へ遷移
+function goToLogin() {
+    document.getElementById("login-screen").classList.add("active");
+    document.getElementById("register-screen").classList.remove("active");
+}
+
+// 新規登録画面へ遷移
+function goToRegister() {
+    document.getElementById("login-screen").classList.remove("active");
+    document.getElementById("register-screen").classList.add("active");
+}
+
+// e-Wisdom画面に遷移
+function goToEwisdom() {
+    document.getElementById("login-screen").classList.remove("active");
+    document.getElementById("e-wisdom-screen").classList.add("active");
+}
+
+// 質問・疑問を投稿する
+function postQuestion() {
+    const questionContent = prompt("質問・疑問を入力してください。");
+    if (questionContent) {
+        const question = {
+            content: questionContent,
+            poster: currentUser.username,
+            id: Date.now()
+        };
+        questions.push(question);
+        alert("質問が投稿されました！");
+        renderQuestions();
+    }
+}
+
+// 質問・疑問に答える
+function answerQuestion() {
+    renderQuestions();
+}
+
+// 質問リストの描画
+function renderQuestions() {
+    const questionsDiv = document.getElementById("questions");
+    questionsDiv.innerHTML = "";
+    questions.forEach(q => {
+        const questionDiv = document.createElement("div");
+        questionDiv.className = "list-item";
+        questionDiv.textContent = `${q.poster}: ${q.content}`;
+        questionsDiv.appendChild(questionDiv);
+    });
+}
+
+// トークリクエスト送信
+function sendRequest() {
+    const targetUser = document.getElementById("search-user").value.trim();
+
+    if (!targetUser || targetUser === currentUser.username) {
+        alert("有効なユーザー名を入力してください。");
         return;
     }
 
-    // ログイン成功後、選択画面に遷移
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("select-screen").style.display = "block";
-    document.getElementById("login-error").style.display = "none";
-}
-
-// 画面遷移
-function goToWisdom() {
-    document.getElementById("select-screen").style.display = "none";
-    document.getElementById("wisdom-screen").style.display = "block";
-}
-
-function goToLine() {
-    document.getElementById("select-screen").style.display = "none";
-    document.getElementById("line-screen").style.display = "block";
-}
-
-function goToGame() {
-    alert("e-gameに遷移");
-}
-
-function goBackToSelect() {
-    document.getElementById("wisdom-screen").style.display = "none";
-    document.getElementById("line-screen").style.display = "none";
-    document.getElementById("select-screen").style.display = "block";
-}
-
-// e-wisdom の質問投稿
-function submitWisdomQuestion() {
-    const question = document.getElementById("wisdom-question").value;
-    if (question) {
-        const answerDiv = document.getElementById("wisdom-answers");
-        const answer = document.createElement("div");
-        answer.textContent = `Q: ${question} - A: これはベストアンサーです。`;
-        answerDiv.appendChild(answer);
+    const userExists = users.some(user => user.username === targetUser);
+    if (!userExists) {
+        alert("このユーザーは存在しません。");
+        return;
     }
+
+    talkRequests.push({ from: currentUser.username, to: targetUser });
+    alert(`${targetUser} にトークリクエストを送信しました！`);
+    renderRequestList();
 }
 
-// e-line のメッセージ送信
-function sendMessage() {
-    const messageInput = document.getElementById("line-input").value;
-    if (messageInput) {
-        const messageBox = document.getElementById("message-box");
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("message");
-        messageDiv.textContent = messageInput;
-        messageBox.appendChild(messageDiv);
-        document.getElementById("line-input").value = "";
-        messageBox.scrollTop = messageBox.scrollHeight; // メッセージが表示されたらスクロール
-    }
+// トークリクエストの描画
+function renderRequestList() {
+    const requestList = document.getElementById("request-list");
+    requestList.innerHTML = "";
+
+    talkRequests.forEach((request, index) => {
+        if (request.to === currentUser.username) {
+            const listItem = document.createElement("div");
+            listItem.className = "list-item request";
+            listItem.textContent = `リクエスト: ${request.from}`;
+            listItem.onclick = () => acceptRequest(index);
+            listItem.oncontextmenu = (e) => {
+                e.preventDefault();
+                rejectRequest(index);
+            };
+            requestList.appendChild(listItem);
+        }
+    });
 }
 
-// 画面切り替え
-function showLoginScreen() {
-    document.getElementById("first-login-screen").style.display = "none";
-    document.getElementById("login-screen").style.display = "block";
+// トークリクエストを受け入れる
+function acceptRequest(index) {
+    const request = talkRequests.splice(index, 1)[0];
+    talkList.push(request.from);
+    alert(`${request.from} とトーク可能になりました。`);
+    renderTalkList();
 }
 
-function showFirstLoginScreen() {
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("first-login-screen").style.display = "block";
+// トークリクエストを拒否する
+function rejectRequest(index) {
+    talkRequests.splice(index, 1);
+    alert("トークリクエストを拒否しました。");
+    renderRequestList();
+}
+
+// トークリストの描画
+function renderTalkList() {
+    const talkListDiv = document.getElementById("talk-list");
+    talkListDiv.innerHTML = "";
+
+    talkList.forEach(user => {
+        const listItem = document.createElement("div");
+        listItem.className = "list-item talk";
+        listItem.textContent = user;
+        talkListDiv.appendChild(listItem);
+    });
 }
