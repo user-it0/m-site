@@ -1,112 +1,61 @@
+/* 全体的なスタイル */
 body {
     font-family: Arial, sans-serif;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #f4f4f4;
 }
 
-.screen {
-    display: none;
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.screen.active {
-    display: block;
+h1, h2, h3 {
+    text-align: center;
 }
 
-h2, h3 {
-    color: #333;
-}
-
-input {
-    margin-bottom: 10px;
-    padding: 8px;
-    width: 250px;
-    margin-top: 10px;
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
+    width: 100%;
+    padding: 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-.list {
+button:disabled {
+    background-color: #ccc;
+}
+
+#questions-list, #request-list {
     margin-top: 20px;
 }
 
-.list-item {
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+button#e-wisdom-btn, button#e-line-btn {
+    margin-top: 20px;
 }
 
-.list-item.request {
-    background-color: #ffebee; /* 薄い赤 */
-    cursor: pointer;
-}
-
-.list-item.talk {
-    background-color: #e3f2fd; /* 青系 */
-    cursor: pointer;
-}
-
-.login-background {
-    background-color: #2E7D32; /* 緑色の背景 */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.register-background {
-    background-color: #FF5722; /* オレンジの背景 */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.login-container, .register-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-input {
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-button {
-    width: 100%;
-}
-
-button:hover {
-    background-color: #388E3C; /* ログイン・登録ボタンの色 */
-}
-
-/* e-wisdom, e-line の背景を指定 */
 #e-wisdom-screen, #e-line-screen {
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
+    display: none;
 }
