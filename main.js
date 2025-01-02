@@ -99,28 +99,27 @@ function sendRequest() {
         return;
     }
 
-    talkRequests.push({ from: currentUser.username, to: targetUser });
-    alert(`${targetUser} にトークリクエストを送信しました！`);
+    const request = {
+        from: currentUser.username,
+        to: targetUser
+    };
+    
+    talkRequests.push(request);
+    alert(`${targetUser}さんにトークリクエストを送信しました。`);
     renderRequestList();
 }
 
 // トークリクエストの描画
 function renderRequestList() {
-    const requestList = document.getElementById("request-list");
-    requestList.innerHTML = "";
+    const requestListDiv = document.getElementById("request-list");
+    requestListDiv.innerHTML = "";
 
     talkRequests.forEach((request, index) => {
-        if (request.to === currentUser.username) {
-            const listItem = document.createElement("div");
-            listItem.className = "list-item request";
-            listItem.textContent = `リクエスト: ${request.from}`;
-            listItem.onclick = () => acceptRequest(index);
-            listItem.oncontextmenu = (e) => {
-                e.preventDefault();
-                rejectRequest(index);
-            };
-            requestList.appendChild(listItem);
-        }
+        const requestDiv = document.createElement("div");
+        requestDiv.className = "list-item request";
+        requestDiv.textContent = `${request.from}さんからのリクエスト`;
+        requestDiv.onclick = () => acceptRequest(index);
+        requestListDiv.appendChild(requestDiv);
     });
 }
 
@@ -128,7 +127,7 @@ function renderRequestList() {
 function acceptRequest(index) {
     const request = talkRequests.splice(index, 1)[0];
     talkList.push(request.from);
-    alert(`${request.from} さんからのリクエストを受け入れました。`);
+    alert(`${request.from}さんのリクエストを受け入れました。`);
     renderTalkList();
     renderRequestList();
 }
@@ -136,7 +135,7 @@ function acceptRequest(index) {
 // トークリクエストを拒否する
 function rejectRequest(index) {
     const request = talkRequests.splice(index, 1)[0];
-    alert(`${request.from} さんのリクエストが拒否されました。`);
+    alert(`${request.from}さんのリクエストが拒否されました。`);
     renderRequestList();
 }
 

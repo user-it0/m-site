@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f0f0f0;
+    padding: 0;
     margin: 0;
+    background-color: #f0f0f0;
 }
 
 .screen {
@@ -13,10 +13,6 @@ body {
     display: block;
 }
 
-.hidden {
-    display: none;
-}
-
 h2, h3 {
     color: #333;
 }
@@ -24,7 +20,7 @@ h2, h3 {
 input {
     margin-bottom: 10px;
     padding: 8px;
-    width: 200px;
+    width: 250px;
     margin-top: 10px;
 }
 
@@ -63,23 +59,54 @@ button:hover {
     cursor: pointer;
 }
 
-.confirm-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
-}
-
-/* 背景色 */
 .login-background {
-    background-color: #e3f2fd; /* ログイン画面の背景色 */
+    background-color: #2E7D32; /* 緑色の背景 */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .register-background {
-    background-color: #ffebee; /* 新規登録画面の背景色 */
+    background-color: #FF5722; /* オレンジの背景 */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container, .register-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+input {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    width: 100%;
+}
+
+button:hover {
+    background-color: #388E3C; /* ログイン・登録ボタンの色 */
+}
+
+/* e-wisdom, e-line の背景を指定 */
+#e-wisdom-screen, #e-line-screen {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
 }
