@@ -15,18 +15,10 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
   button {
-    width: 100%;
     padding: 10px;
-    background-color: #4caf50;
+    margin: 5px;
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
@@ -41,8 +33,21 @@ body {
     text-align: center;
   }
   
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
   ul {
     padding-left: 20px;
+  }
+  
+  .game-item {
+    margin: 10px 0;
   }
   
   @media (max-width: 600px) {

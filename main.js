@@ -1,7 +1,10 @@
 let userData = {};  // ユーザー情報
 let friends = [];    // 友達リスト
-let usersList = []; // ユーザー情報を保存するリスト
-let games = ["Draw a Perfect Circle", "オンラインオセロ"];  // ゲームリスト
+let usersList = [];  // ユーザー情報を保存するリスト
+let games = [
+  { name: "Draw a Perfect Circle", description: "完璧な円を描こう！" },
+  { name: "オンラインオセロ", description: "ユーザー同士のオセロ対戦。" }
+];  // ゲームリスト
 
 // ユーザーがログイン
 function loginUser() {
@@ -76,21 +79,40 @@ function sendMessage() {
 function showGame() {
   document.getElementById("select-screen").style.display = "none";
   document.getElementById("e-game-screen").style.display = "block";
+  
+  // ゲーム一覧を表示
+  displayGames();
+}
+
+// ゲーム一覧を表示
+function displayGames() {
+  const gameListDiv = document.getElementById("game-list");
+  gameListDiv.innerHTML = "";  // 既存のゲームリストをクリア
+
+  games.forEach(game => {
+    const gameDiv = document.createElement("div");
+    gameDiv.classList.add("game-item");
+    gameDiv.innerHTML = `<h3>${game.name}</h3><p>${game.description}</p><button onclick="startGame('${game.name}')">ゲーム開始</button>`;
+    gameListDiv.appendChild(gameDiv);
+  });
 }
 
 // ゲーム開始
-function startGame(game) {
-  alert(`${game}を始めます！`);
+function startGame(gameName) {
+  alert(`${gameName}を始めます！`);
   // ゲームの処理を追加する場所
 }
 
 // ゲーム追加
 function addGame() {
   const gameName = prompt("追加するゲームの名前を入力してください");
-  if (gameName) {
-    games.push(gameName);
+  const gameDescription = prompt("ゲームの説明を入力してください");
+
+  if (gameName && gameDescription) {
+    games.push({ name: gameName, description: gameDescription });
     alert(`${gameName} が追加されました！`);
     console.log("現在のゲームリスト:", games);
+    displayGames();  // ゲームリストを再表示
   }
 }
 
