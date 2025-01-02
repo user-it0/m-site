@@ -1,7 +1,7 @@
 let userData = {};  // ユーザー情報
 let isFirstLogin = true;  // 初回ログインフラグ
 
-// 初回ログイン（アカウント作成）
+// 新規登録（アカウント作成）
 function createAccount() {
     const email = document.getElementById("email").value;
     const emailPassword = document.getElementById("email-password").value;
@@ -90,4 +90,15 @@ function sendMessage() {
         document.getElementById("line-input").value = "";
         messageBox.scrollTop = messageBox.scrollHeight; // メッセージが表示されたらスクロール
     }
+}
+
+// 画面切り替え
+function showLoginScreen() {
+    document.getElementById("first-login-screen").style.display = "none";
+    document.getElementById("login-screen").style.display = "block";
+}
+
+function showFirstLoginScreen() {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("first-login-screen").style.display = "block";
 }

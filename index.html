@@ -9,13 +9,14 @@
 <body>
     <!-- 初回ログイン画面 -->
     <div id="first-login-screen" class="container">
-        <h1>初回ログイン</h1>
+        <h1>新規登録</h1>
         <input type="email" id="email" placeholder="メールアドレス" required>
         <input type="password" id="email-password" placeholder="メールアドレス用パスワード" required>
         <input type="text" id="username" placeholder="ユーザー名" required>
         <input type="password" id="site-password" placeholder="サイト内パスワード" required>
         <button onclick="createAccount()">アカウント作成</button>
         <p id="first-login-error" style="color:red; display:none;">メールアドレスまたはパスワードが間違っています。</p>
+        <p>既にアカウントをお持ちですか？ <a href="javascript:showLoginScreen()">ログイン</a></p>
     </div>
 
     <!-- ログイン画面 -->
@@ -25,6 +26,7 @@
         <input type="password" id="login-site-password" placeholder="サイト内パスワード" required>
         <button onclick="loginUser()">ログイン</button>
         <p id="login-error" style="color:red; display:none;">ユーザー名またはパスワードが間違っています。</p>
+        <p>新規登録する場合は <a href="javascript:showFirstLoginScreen()">こちら</a> をクリック</p>
     </div>
 
     <!-- 選択ページ -->
