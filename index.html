@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>m-port</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>m-port</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="app">
-        <!-- ログイン画面 -->
-        <div id="login-screen">
-            <input type="text" id="username-input" placeholder="アカウント名">
-            <button id="create-account-btn">新規作成</button>
-            <button id="login-btn">ログイン</button>
-        </div>
+  <div class="container">
+    <!-- メインメニュー -->
+    <div id="mainMenu">
+      <input type="text" id="usernameInput" placeholder="ユーザー名" />
+      <button id="createAccountBtn">新規作成</button>
+      <button id="loginBtn">ログイン</button>
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- プログラム画面 -->
+    <div id="programScreen" class="screen">
+      <button id="eWisdomBtn">e-wisdom</button>
+      <button id="eLineBtn">e-line</button>
+    </div>
+
+    <!-- e-wisdom画面 -->
+    <div id="eWisdomScreen" class="screen">
+      <input type="text" id="questionInput" placeholder="質問を入力" />
+      <button id="postQuestionBtn">質問を投稿</button>
+      <button id="viewQuestionsBtn">質問一覧</button>
+    </div>
+
+    <!-- e-line画面 -->
+    <div id="eLineScreen" class="screen">
+      <input type="text" id="userSearch" placeholder="ユーザー名を検索" />
+      <button id="sendRequestBtn">リクエスト送信</button>
+      <ul id="userList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
