@@ -1,18 +1,57 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>m-port - ログイン</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>m-port</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="login-page">
-    <h1>m-portへようこそ</h1>
-    <input type="text" id="username" placeholder="ユーザー名を入力してください">
-    <button id="create-account">新規アカウント作成</button>
-    <button id="login">ログイン</button>
-  </div>
-  <script src="scripts.js"></script>
+    <div id="app">
+        <!-- ログイン画面 -->
+        <div id="login-screen">
+            <input type="text" id="username-input" placeholder="アカウント名">
+            <button id="create-account-btn">新規作成</button>
+            <button id="login-btn">ログイン</button>
+        </div>
+
+        <!-- ユーザー登録画面 -->
+        <div id="signup-screen" class="hidden">
+            <input type="text" id="new-username" placeholder="新しいユーザー名">
+            <input type="password" id="password" placeholder="パスワード">
+            <button id="signup-btn">登録</button>
+        </div>
+
+        <!-- プログラム画面 -->
+        <div id="program-screen" class="hidden">
+            <button id="post-question-btn">疑問を投稿</button>
+            <button id="answer-question-btn">回答する</button>
+            <button id="e-wisdom-btn">e-wisdom</button>
+            <button id="e-line-btn">e-line</button>
+        </div>
+
+        <!-- e-wisdom画面 -->
+        <div id="e-wisdom-screen" class="hidden">
+            <textarea id="question-input" placeholder="疑問を入力"></textarea>
+            <button id="submit-question-btn">投稿</button>
+            <button id="view-questions-btn">疑問一覧</button>
+            <div id="questions-list"></div>
+        </div>
+
+        <!-- e-line画面 -->
+        <div id="e-line-screen" class="hidden">
+            <input type="text" id="search-user" placeholder="ユーザー名を入力">
+            <div id="friends-list"></div>
+        </div>
+
+        <!-- トーク画面 -->
+        <div id="chat-screen" class="hidden">
+            <div id="chat-history"></div>
+            <input type="text" id="message-input" placeholder="メッセージを入力">
+            <button id="send-message-btn">送信</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
