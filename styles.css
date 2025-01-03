@@ -1,18 +1,53 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
+    background-color: #e0f7fa; /* 薄い青色の背景 */
 }
 
 #app {
-    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 input, button {
-    margin: 10px;
+    width: 100%;
     padding: 10px;
-    width: 200px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 非表示クラス */
+.hidden {
+    display: none;
+}
+
+/* ユーザーリスト */
+#user-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#user-list li {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+#user-list li:hover {
+    background-color: #ddd;
 }

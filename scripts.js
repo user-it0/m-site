@@ -1,78 +1,89 @@
-let users = []; // ユーザーリスト（仮）
+document.addEventListener('DOMContentLoaded', () => {
+    // 各画面要素の取得
+    const loginScreen = document.getElementById('login-screen');
+    const signupScreen = document.getElementById('signup-screen');
+    const programScreen = document.getElementById('program-screen');
+    const eWisdomScreen = document.getElementById('e-wisdom-screen');
+    const eLineScreen = document.getElementById('e-line-screen');
 
-// ログインページからサインアップページへの遷移
-document.getElementById('create-account-btn')?.addEventListener('click', () => {
-    window.location.href = 'signup.html';
-});
+    // ログイン画面
+    const createAccountBtn = document.getElementById('create-account-btn');
+    const loginBtn = document.getElementById('login-btn');
 
-// サインアップページで登録ボタンの動作
-document.getElementById('signup-btn')?.addEventListener('click', () => {
-    const newUsername = document.getElementById('new-username').value;
-    const password = document.getElementById('password').value;
+    // サインアップ画面
+    const signupBtn = document.getElementById('signup-btn');
+    const backToLoginBtn = document.getElementById('back-to-login');
 
-    if (newUsername && password) {
-        users.push({ username: newUsername, password });
-        alert('アカウントが作成されました');
-        window.location.href = 'program.html'; // プログラム画面に遷移
-    } else {
-        alert('ユーザー名とパスワードを入力してください');
-    }
-});
+    // プログラム画面
+    const eWisdomBtn = document.getElementById('e-wisdom-btn');
+    const eLineBtn = document.getElementById('e-line-btn');
 
-// ログインボタンの動作
-document.getElementById('login-btn')?.addEventListener('click', () => {
-    const usernameInput = document.getElementById('username-input').value;
-    const user = users.find(u => u.username === usernameInput);
+    // e-wisdom画面
+    const postQuestionBtn = document.getElementById('post-question-btn');
+    const viewQuestionsBtn = document.getElementById('view-questions-btn');
 
-    if (user) {
-        window.location.href = 'program.html'; // プログラム画面に遷移
-    } else {
-        alert('ユーザー名が見つかりません');
-    }
-});
+    // e-line画面
+    const sendRequestBtn = document.getElementById('send-request-btn');
+    const userSearch = document.getElementById('user-search');
+    const userList = document.getElementById('user-list');
 
-// プログラム画面からe-wisdomページへの遷移
-document.getElementById('e-wisdom-btn')?.addEventListener('click', () => {
-    window.location.href = 'e_wisdom.html';
-});
+    // 初期表示（ログイン画面）
+    loginScreen.classList.remove('hidden');
 
-// e-wisdomページで疑問を投稿
-document.getElementById('submit-question-btn')?.addEventListener('click', () => {
-    const question = document.getElementById('question-input').value;
-    alert('質問が投稿されました');
-    document.getElementById('question-input').value = '';
-});
-
-// e-wisdomの質問一覧を表示
-document.getElementById('view-questions-btn')?.addEventListener('click', () => {
-    const questionsList = document.getElementById('questions-list');
-    questionsList.innerHTML = '<div>質問1</div><div>質問2</div>'; // 例として
-});
-
-// プログラム画面からe-lineページへの遷移
-document.getElementById('e-line-btn')?.addEventListener('click', () => {
-    window.location.href = 'e_line.html';
-});
-
-// e-lineページでユーザー検索
-document.getElementById('search-user')?.addEventListener('input', () => {
-    const searchValue = document.getElementById('search-user').value.toLowerCase();
-    const friendsList = document.getElementById('friends-list');
-    friendsList.innerHTML = '';
-
-    users.forEach(user => {
-        if (user.username.toLowerCase().includes(searchValue)) {
-            const div = document.createElement('div');
-            div.textContent = user.username;
-            friendsList.appendChild(div);
-        }
+    // 新規作成ボタン
+    createAccountBtn.addEventListener('click', () => {
+        loginScreen.classList.add('hidden');
+        signupScreen.classList.remove('hidden');
     });
-});
 
-// 戻るボタン
-const backBtns = document.querySelectorAll('#back-btn');
-backBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        window.history.back();
+    // ログインボタン
+    loginBtn.addEventListener('click', () => {
+        loginScreen.classList.add('hidden');
+        programScreen.classList.remove('hidden');
+    });
+
+    // サインアップ画面に戻る
+    backToLoginBtn.addEventListener('click', () => {
+        signupScreen.classList.add('hidden');
+        loginScreen.classList.remove('hidden');
+    });
+
+    // サインアップボタン
+    signupBtn.addEventListener('click', () => {
+        // ユーザー登録処理がここに入ります
+        signupScreen.classList.add('hidden');
+        programScreen.classList.remove('hidden');
+    });
+
+    // e-wisdomボタン
+    eWisdomBtn.addEventListener('click', () => {
+        programScreen.classList.add('hidden');
+        eWisdomScreen.classList.remove('hidden');
+    });
+
+    // e-lineボタン
+    eLineBtn.addEventListener('click', () => {
+        programScreen.classList.add('hidden');
+        eLineScreen.classList.remove('hidden');
+    });
+
+    // 質問投稿ボタン
+    postQuestionBtn.addEventListener('click', () => {
+        alert('質問が投稿されました');
+    });
+
+    // 質問一覧ボタン
+    viewQuestionsBtn.addEventListener('click', () => {
+        alert('質問一覧を表示');
+    });
+
+    // ユーザーリストを表示
+    sendRequestBtn.addEventListener('click', () => {
+        const username = userSearch.value;
+        if (username) {
+            const li = document.createElement('li');
+            li.textContent = username;
+            userList.appendChild(li);
+        }
     });
 });
