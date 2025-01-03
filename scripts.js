@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const programScreen = document.getElementById("programScreen");
     const eWisdomScreen = document.getElementById("eWisdomScreen");
     const eLineScreen = document.getElementById("eLineScreen");
+    const usernameInput = document.getElementById("usernameInput");
   
     // 画面を切り替える関数
     function showScreen(screenId) {
@@ -24,6 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // 新規アカウント作成ボタンの動作
     createAccountBtn.addEventListener("click", () => {
+      const username = usernameInput.value.trim();
+  
+      // ユーザー名が入力されているかをチェック
+      if (username === "") {
+        alert("ユーザー名を入力してください。");
+        return;
+      }
+  
+      // ユーザー名が入力されている場合、メインメニューを非表示にし、プログラム画面を表示
       mainMenu.style.display = "none";
       programScreen.style.display = "block";
     });
