@@ -1,38 +1,18 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>m-port</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>m-port</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- ログイン画面 -->
-    <div class="login-screen">
-        <h1>ログイン</h1>
-        <input type="text" id="username" placeholder="ユーザー名を入力">
-        <button id="loginBtn">ログイン</button>
-        <button id="createAccountBtn">新規アカウント作成</button>
-    </div>
-
-    <!-- アカウント作成画面 -->
-    <div class="account-creation-screen" style="display: none;">
-        <h1>新規アカウント作成</h1>
-        <input type="text" id="newUsername" placeholder="ユーザー名を入力">
-        <input type="password" id="password" placeholder="パスワードを入力">
-        <button id="createBtn">アカウント作成</button>
-        <button id="backBtn">戻る</button>
-    </div>
-
-    <!-- プログラム画面 -->
-    <div class="program-screen" style="display: none;">
-        <h1>m-port プログラム画面</h1>
-        <button id="postQuestionBtn">疑問を投稿</button>
-        <button id="answerQuestionBtn">回答する</button>
-        <button id="eWisdomBtn">e-wisdom</button>
-        <button id="eLineBtn">e-line</button>
-    </div>
-
-    <script src="script.js"></script>
+  <div id="main">
+    <h1>Welcome to m-port</h1>
+    <input type="text" id="username" placeholder="Enter your username">
+    <button id="newAccount">Create Account</button>
+    <button id="login">Login</button>
+  </div>
+  <script src="scripts.js"></script>
 </body>
 </html>
