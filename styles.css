@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
@@ -7,15 +7,16 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    transition: opacity 0.5s;
+    transition: all 0.5s ease;
   }
   
-  #login-page, #program-screen, #e-line-page, #e-wisdom-page {
+  #login-page, #program-screen, #e-line-page {
     text-align: center;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
   }
   
   button {
@@ -30,4 +31,24 @@ body {
   
   button:hover {
     background-color: #0056b3;
+  }
+  
+  input {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #chat-box {
+    margin-top: 20px;
+  }
+  
+  #search-user {
+    width: 200px;
   }  

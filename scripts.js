@@ -2,20 +2,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const usernameInput = document.getElementById("username");
     const createAccountButton = document.getElementById("create-account");
     const loginButton = document.getElementById("login");
+    const logoutButton = document.getElementById("logout");
   
     // ログインページ
     if (window.location.pathname.includes("index.html")) {
       createAccountButton.addEventListener("click", () => {
         const username = usernameInput.value.trim();
         if (username) {
-          if (!localStorage.getItem(username)) {
-            localStorage.setItem(username, JSON.stringify({ eWisdom: [], eLine: [] }));
-            alert("アカウントが作成されました！");
-            localStorage.setItem("currentUser", username);
-            transitionToPage("program.html");
-          } else {
-            alert("このユーザー名はすでに存在します。");
-          }
+          localStorage.setItem(username, JSON.stringify({ eWisdom: [], eLine: [] }));
+          alert("アカウントが作成されました！");
+          localStorage.setItem("currentUser", username);
+          window.location.href = "program.html";
         } else {
           alert("ユーザー名を入力してください。");
         }
@@ -26,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (localStorage.getItem(username)) {
           alert("ログイン成功！");
           localStorage.setItem("currentUser", username);
-          transitionToPage("program.html");
+          window.location.href = "program.html";
         } else {
-          alert("アカウントが見つかりません。");
+          alert("アカウントが存在しません。先にアカウントを作成してください。");
         }
       });
     }
@@ -38,32 +35,42 @@ document.addEventListener("DOMContentLoaded", () => {
       const currentUser = localStorage.getItem("currentUser");
       if (!currentUser) {
         alert("ログインしてください。");
-        transitionToPage("index.html");
+        window.location.href = "index.html";
       } else {
         document.getElementById("current-user").textContent = currentUser;
   
         document.getElementById("e-wisdom").addEventListener("click", () => {
-          transitionToPage("e-wisdom.html");
+          window.location.href = "e-wisdom.html";
         });
   
         document.getElementById("e-line").addEventListener("click", () => {
-          transitionToPage("e-line.html");
+          window.location.href = "e-line.html";
         });
   
-        document.getElementById("logout").addEventListener("click", () => {
+        logoutButton.addEventListener("click", () => {
           localStorage.removeItem("currentUser");
-          transitionToPage("index.html");
+          window.location.href = "index.html";
         });
       }
     }
   
-    function transitionToPage(url) {
-      document.body.style.opacity = "0";
-      setTimeout(() => {
-        window.location.href = url;
-      }, 500);
-    }
+    // e-Line機能
+    if (window.location.pathname.includes("e-line.html")) {
+      const sendRequestButton = document.getElementById("send-request");
+      const searchUserInput = document.getElementById("search-user");
+      const friendList = document.getElementById("friend-list");
+      const chatBox = document.getElementById("chat-box");
   
-    document.body.style.transition = "opacity 0.5s";
-    document.body.style.opacity = "1";
+      sendRequestButton.addEventListener("click", () => {
+        const username = searchUserInput.value.trim();
+        if (username) {
+          let friendListItem = document.createElement("li");
+          friendListItem.textContent = username;
+          friendList.appendChild(friendListItem);
+          searchUserInput.value = "";
+        } else {
+          alert("ユーザー名を入力してください。");
+        }
+      });
+    }
   });  
