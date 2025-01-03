@@ -33,16 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
     signupBtn.addEventListener('click', () => {
         const newUsername = document.getElementById('new-username').value;
         const password = document.getElementById('password').value;
-        users.push({ username: newUsername, password });
-        alert('アカウントが作成されました');
-        signupScreen.classList.add('hidden');
-        programScreen.classList.remove('hidden');
+
+        if (newUsername && password) {
+            users.push({ username: newUsername, password });
+            alert('アカウントが作成されました');
+            signupScreen.classList.add('hidden');
+            programScreen.classList.remove('hidden');
+        } else {
+            alert('ユーザー名とパスワードを入力してください');
+        }
     });
 
     // ログイン
     loginBtn.addEventListener('click', () => {
-        loginScreen.classList.add('hidden');
-        programScreen.classList.remove('hidden');
+        const usernameInput = document.getElementById('username-input').value;
+        const user = users.find(u => u.username === usernameInput);
+
+        if (user) {
+            loginScreen.classList.add('hidden');
+            programScreen.classList.remove('hidden');
+        } else {
+            alert('ユーザー名が見つかりません');
+        }
     });
 
     // 疑問投稿
