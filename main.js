@@ -1,79 +1,57 @@
-// 初期状態：ログイン画面を表示
-document.getElementById("loginBtn").addEventListener("click", function() {
-    const username = document.getElementById("username").value;
-    if (username) {
-        // ログイン後、プログラム画面に遷移
-        showProgramScreen();
-    } else {
-        alert("ユーザー名を入力してください");
-    }
-});
+document.addEventListener("DOMContentLoaded", function () {
+    const loginScreen = document.querySelector(".login-screen");
+    const accountCreationScreen = document.querySelector(".account-creation-screen");
+    const programScreen = document.querySelector(".program-screen");
 
-document.getElementById("createAccountBtn").addEventListener("click", function() {
-    document.querySelector(".login-screen").style.display = "none";
-    document.querySelector(".account-creation-screen").style.display = "flex";
-});
+    // ログインボタンの処理
+    document.getElementById("loginBtn").addEventListener("click", function () {
+        const username = document.getElementById("username").value.trim();
+        if (username) {
+            loginScreen.style.display = "none";
+            programScreen.style.display = "flex";
+        } else {
+            alert("ユーザー名を入力してください。");
+        }
+    });
 
-document.getElementById("createBtn").addEventListener("click", function() {
-    const username = document.getElementById("newUsername").value;
-    const password = document.getElementById("password").value;
-    if (username && password) {
-        // アカウント作成後、プログラム画面に遷移
-        showProgramScreen();
-    } else {
-        alert("すべての欄に入力してください");
-    }
-});
+    // 新規アカウント作成ボタンの処理
+    document.getElementById("createAccountBtn").addEventListener("click", function () {
+        loginScreen.style.display = "none";
+        accountCreationScreen.style.display = "flex";
+    });
 
-document.getElementById("backBtn").addEventListener("click", function() {
-    document.querySelector(".account-creation-screen").style.display = "none";
-    document.querySelector(".login-screen").style.display = "flex";
-});
+    // アカウント作成ボタンの処理
+    document.getElementById("createBtn").addEventListener("click", function () {
+        const newUsername = document.getElementById("newUsername").value.trim();
+        const password = document.getElementById("password").value.trim();
+        if (newUsername && password) {
+            accountCreationScreen.style.display = "none";
+            programScreen.style.display = "flex";
+        } else {
+            alert("すべてのフィールドを入力してください。");
+        }
+    });
 
-document.getElementById("postQuestionBtn").addEventListener("click", function() {
-    document.querySelector(".program-screen").style.display = "none";
-    document.querySelector(".e-wisdom-screen").style.display = "flex";
-});
+    // 戻るボタンの処理
+    document.getElementById("backBtn").addEventListener("click", function () {
+        accountCreationScreen.style.display = "none";
+        loginScreen.style.display = "flex";
+    });
 
-document.getElementById("eWisdomBtn").addEventListener("click", function() {
-    document.querySelector(".program-screen").style.display = "none";
-    document.querySelector(".e-wisdom-screen").style.display = "flex";
-});
+    // プログラム画面のボタン処理
+    document.getElementById("postQuestionBtn").addEventListener("click", function () {
+        alert("疑問を投稿する機能は未実装です。");
+    });
 
-document.getElementById("eLineBtn").addEventListener("click", function() {
-    document.querySelector(".program-screen").style.display = "none";
-    document.querySelector(".e-line-screen").style.display = "flex";
-});
+    document.getElementById("answerQuestionBtn").addEventListener("click", function () {
+        alert("回答する機能は未実装です。");
+    });
 
-document.getElementById("submitQuestionBtn").addEventListener("click", function() {
-    const question = document.getElementById("questionInput").value;
-    if (question) {
-        alert("質問が投稿されました！");
-        document.getElementById("questionInput").value = '';
-    } else {
-        alert("質問を入力してください");
-    }
-});
+    document.getElementById("eWisdomBtn").addEventListener("click", function () {
+        alert("e-wisdom機能は未実装です。");
+    });
 
-document.getElementById("showQuestionsBtn").addEventListener("click", function() {
-    alert("質問一覧が表示されます");
+    document.getElementById("eLineBtn").addEventListener("click", function () {
+        alert("e-line機能は未実装です。");
+    });
 });
-
-document.getElementById("sendRequestBtn").addEventListener("click", function() {
-    const searchUser = document.getElementById("searchUser").value;
-    if (searchUser) {
-        const li = document.createElement("li");
-        li.textContent = searchUser + " (リクエスト待機中)";
-        document.getElementById("requestList").appendChild(li);
-        document.getElementById("searchUser").value = '';
-    } else {
-        alert("ユーザー名を入力してください");
-    }
-});
-
-function showProgramScreen() {
-    // ログイン画面とアカウント作成画面を非表示にし、プログラム画面を表示
-    document.querySelector(".login-screen").style.display = "none";
-    document.querySelector(".account-creation-screen").style.display = "none";
-    document.querySelector(".program-screen").style.display = "flex";
-}

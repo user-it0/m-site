@@ -7,38 +7,30 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+    <!-- ログイン画面 -->
     <div class="login-screen">
-        <h1>m-port</h1>
-        <input type="text" id="username" placeholder="アカウント名">
+        <h1>ログイン</h1>
+        <input type="text" id="username" placeholder="ユーザー名を入力">
         <button id="loginBtn">ログイン</button>
-        <button id="createAccountBtn">新規作成</button>
+        <button id="createAccountBtn">新規アカウント作成</button>
     </div>
 
-    <div class="account-creation-screen" style="display:none;">
-        <input type="text" id="newUsername" placeholder="新規アカウント名">
-        <input type="password" id="password" placeholder="パスワード">
+    <!-- アカウント作成画面 -->
+    <div class="account-creation-screen" style="display: none;">
+        <h1>新規アカウント作成</h1>
+        <input type="text" id="newUsername" placeholder="ユーザー名を入力">
+        <input type="password" id="password" placeholder="パスワードを入力">
         <button id="createBtn">アカウント作成</button>
         <button id="backBtn">戻る</button>
     </div>
 
-    <div class="program-screen" style="display:none;">
+    <!-- プログラム画面 -->
+    <div class="program-screen" style="display: none;">
+        <h1>m-port プログラム画面</h1>
         <button id="postQuestionBtn">疑問を投稿</button>
-        <button id="answerBtn">回答する</button>
+        <button id="answerQuestionBtn">回答する</button>
         <button id="eWisdomBtn">e-wisdom</button>
         <button id="eLineBtn">e-line</button>
-    </div>
-
-    <div class="e-wisdom-screen" style="display:none;">
-        <input type="text" id="questionInput" placeholder="疑問を入力">
-        <button id="submitQuestionBtn">投稿</button>
-        <button id="showQuestionsBtn">疑問一覧</button>
-    </div>
-
-    <div class="e-line-screen" style="display:none;">
-        <input type="text" id="searchUser" placeholder="ユーザー名を入力">
-        <button id="sendRequestBtn">リクエスト送信</button>
-        <ul id="requestList"></ul>
     </div>
 
     <script src="script.js"></script>

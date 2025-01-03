@@ -1,52 +1,52 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
 }
 
-h1 {
-    margin-top: 50px;
+div {
+    text-align: center;
+    width: 300px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"], input[type="password"] {
+input {
+    width: 100%;
     padding: 10px;
-    margin: 10px;
-    width: 80%;
-    box-sizing: border-box;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
-    padding: 10px 20px;
-    margin: 10px;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
     cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #ddd;
+    background: #0056b3;
 }
 
-.login-screen, .account-creation-screen, .program-screen, .e-wisdom-screen, .e-line-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    padding: 8px;
-    margin: 5px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-}
-
-li:hover {
-    background-color: #f0f0f0;
+.program-screen button {
+    margin: 5px 0;
 }
