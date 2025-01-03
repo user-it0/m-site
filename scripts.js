@@ -8,10 +8,14 @@ document.addEventListener("DOMContentLoaded", () => {
       createAccountButton.addEventListener("click", () => {
         const username = usernameInput.value.trim();
         if (username) {
-          localStorage.setItem(username, JSON.stringify({ eWisdom: [], eLine: [] }));
-          alert("アカウントが作成されました！");
-          localStorage.setItem("currentUser", username);
-          transitionToPage("program.html");
+          if (!localStorage.getItem(username)) {
+            localStorage.setItem(username, JSON.stringify({ eWisdom: [], eLine: [] }));
+            alert("アカウントが作成されました！");
+            localStorage.setItem("currentUser", username);
+            transitionToPage("program.html");
+          } else {
+            alert("このユーザー名はすでに存在します。");
+          }
         } else {
           alert("ユーザー名を入力してください。");
         }
