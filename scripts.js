@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const usernameInput = document.getElementById("username");
     const createAccountButton = document.getElementById("create-account");
     const loginButton = document.getElementById("login");
-    const logoutButton = document.getElementById("logout");
   
     // ログインページ
     if (window.location.pathname.includes("index.html")) {
@@ -10,22 +9,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const username = usernameInput.value.trim();
         if (username) {
           localStorage.setItem(username, JSON.stringify({ eWisdom: [], eLine: [] }));
-          alert("Account created successfully!");
+          alert("アカウントが作成されました！");
           localStorage.setItem("currentUser", username);
-          window.location.href = "program.html";
+          transitionToPage("program.html");
         } else {
-          alert("Please enter a username.");
+          alert("ユーザー名を入力してください。");
         }
       });
   
       loginButton.addEventListener("click", () => {
         const username = usernameInput.value.trim();
         if (localStorage.getItem(username)) {
-          alert("Login successful!");
+          alert("ログイン成功！");
           localStorage.setItem("currentUser", username);
-          window.location.href = "program.html";
+          transitionToPage("program.html");
         } else {
-          alert("Account does not exist. Please create an account first.");
+          alert("アカウントが見つかりません。");
         }
       });
     }
@@ -34,25 +33,33 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("program.html")) {
       const currentUser = localStorage.getItem("currentUser");
       if (!currentUser) {
-        alert("Please log in first.");
-        window.location.href = "index.html";
+        alert("ログインしてください。");
+        transitionToPage("index.html");
       } else {
         document.getElementById("current-user").textContent = currentUser;
   
         document.getElementById("e-wisdom").addEventListener("click", () => {
-          window.location.href = "e-wisdom.html";
+          transitionToPage("e-wisdom.html");
         });
   
         document.getElementById("e-line").addEventListener("click", () => {
-          window.location.href = "e-line.html";
+          transitionToPage("e-line.html");
         });
   
-        logoutButton.addEventListener("click", () => {
+        document.getElementById("logout").addEventListener("click", () => {
           localStorage.removeItem("currentUser");
-          window.location.href = "index.html";
+          transitionToPage("index.html");
         });
       }
     }
   
-    // その他のページ機能実装を追加 (例: e-wisdom, e-line) ...
+    function transitionToPage(url) {
+      document.body.style.opacity = "0";
+      setTimeout(() => {
+        window.location.href = url;
+      }, 500);
+    }
+  
+    document.body.style.transition = "opacity 0.5s";
+    document.body.style.opacity = "1";
   });  
