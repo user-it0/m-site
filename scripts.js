@@ -1,119 +1,78 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // ログイン・サインアップ画面の切り替え
-    const loginScreen = document.getElementById('login-screen');
-    const signupScreen = document.getElementById('signup-screen');
-    const programScreen = document.getElementById('program-screen');
-    const eWisdomScreen = document.getElementById('e-wisdom-screen');
-    const eLineScreen = document.getElementById('e-line-screen');
-    const chatScreen = document.getElementById('chat-screen');
-    
-    const createAccountBtn = document.getElementById('create-account-btn');
-    const signupBtn = document.getElementById('signup-btn');
-    const loginBtn = document.getElementById('login-btn');
-    const postQuestionBtn = document.getElementById('post-question-btn');
-    const answerQuestionBtn = document.getElementById('answer-question-btn');
-    const eWisdomBtn = document.getElementById('e-wisdom-btn');
-    const eLineBtn = document.getElementById('e-line-btn');
-    const submitQuestionBtn = document.getElementById('submit-question-btn');
-    const viewQuestionsBtn = document.getElementById('view-questions-btn');
-    const searchUser = document.getElementById('search-user');
+let users = []; // ユーザーリスト（仮）
+
+// ログインページからサインアップページへの遷移
+document.getElementById('create-account-btn')?.addEventListener('click', () => {
+    window.location.href = 'signup.html';
+});
+
+// サインアップページで登録ボタンの動作
+document.getElementById('signup-btn')?.addEventListener('click', () => {
+    const newUsername = document.getElementById('new-username').value;
+    const password = document.getElementById('password').value;
+
+    if (newUsername && password) {
+        users.push({ username: newUsername, password });
+        alert('アカウントが作成されました');
+        window.location.href = 'program.html'; // プログラム画面に遷移
+    } else {
+        alert('ユーザー名とパスワードを入力してください');
+    }
+});
+
+// ログインボタンの動作
+document.getElementById('login-btn')?.addEventListener('click', () => {
+    const usernameInput = document.getElementById('username-input').value;
+    const user = users.find(u => u.username === usernameInput);
+
+    if (user) {
+        window.location.href = 'program.html'; // プログラム画面に遷移
+    } else {
+        alert('ユーザー名が見つかりません');
+    }
+});
+
+// プログラム画面からe-wisdomページへの遷移
+document.getElementById('e-wisdom-btn')?.addEventListener('click', () => {
+    window.location.href = 'e_wisdom.html';
+});
+
+// e-wisdomページで疑問を投稿
+document.getElementById('submit-question-btn')?.addEventListener('click', () => {
+    const question = document.getElementById('question-input').value;
+    alert('質問が投稿されました');
+    document.getElementById('question-input').value = '';
+});
+
+// e-wisdomの質問一覧を表示
+document.getElementById('view-questions-btn')?.addEventListener('click', () => {
+    const questionsList = document.getElementById('questions-list');
+    questionsList.innerHTML = '<div>質問1</div><div>質問2</div>'; // 例として
+});
+
+// プログラム画面からe-lineページへの遷移
+document.getElementById('e-line-btn')?.addEventListener('click', () => {
+    window.location.href = 'e_line.html';
+});
+
+// e-lineページでユーザー検索
+document.getElementById('search-user')?.addEventListener('input', () => {
+    const searchValue = document.getElementById('search-user').value.toLowerCase();
     const friendsList = document.getElementById('friends-list');
-    const messageInput = document.getElementById('message-input');
-    const sendMessageBtn = document.getElementById('send-message-btn');
+    friendsList.innerHTML = '';
 
-    let users = []; // ユーザーリスト（仮）
-
-    // 新規作成ボタン
-    createAccountBtn.addEventListener('click', () => {
-        loginScreen.classList.add('hidden');
-        signupScreen.classList.remove('hidden');
-    });
-
-    // サインアップ
-    signupBtn.addEventListener('click', () => {
-        const newUsername = document.getElementById('new-username').value;
-        const password = document.getElementById('password').value;
-
-        if (newUsername && password) {
-            users.push({ username: newUsername, password });
-            alert('アカウントが作成されました');
-            signupScreen.classList.add('hidden');
-            programScreen.classList.remove('hidden');
-        } else {
-            alert('ユーザー名とパスワードを入力してください');
-        }
-    });
-
-    // ログイン
-    loginBtn.addEventListener('click', () => {
-        const usernameInput = document.getElementById('username-input').value;
-        const user = users.find(u => u.username === usernameInput);
-
-        if (user) {
-            loginScreen.classList.add('hidden');
-            programScreen.classList.remove('hidden');
-        } else {
-            alert('ユーザー名が見つかりません');
-        }
-    });
-
-    // 疑問投稿
-    postQuestionBtn.addEventListener('click', () => {
-        eWisdomScreen.classList.remove('hidden');
-    });
-
-    // e-wisdom
-    eWisdomBtn.addEventListener('click', () => {
-        eWisdomScreen.classList.remove('hidden');
-    });
-
-    // 疑問の投稿
-    submitQuestionBtn.addEventListener('click', () => {
-        const question = document.getElementById('question-input').value;
-        alert('質問が投稿されました');
-        document.getElementById('question-input').value = '';
-    });
-
-    // 質問一覧の表示
-    viewQuestionsBtn.addEventListener('click', () => {
-        const questionList = ['質問1', '質問2', '質問3'];
-        const questionsListDiv = document.getElementById('questions-list');
-        questionsListDiv.innerHTML = '';
-        questionList.forEach(question => {
+    users.forEach(user => {
+        if (user.username.toLowerCase().includes(searchValue)) {
             const div = document.createElement('div');
-            div.textContent = question;
-            questionsListDiv.appendChild(div);
-        });
+            div.textContent = user.username;
+            friendsList.appendChild(div);
+        }
     });
+});
 
-    // e-line
-    eLineBtn.addEventListener('click', () => {
-        eLineScreen.classList.remove('hidden');
-    });
-
-    // ユーザー検索
-    searchUser.addEventListener('input', () => {
-        friendsList.innerHTML = '';
-        const searchValue = searchUser.value.toLowerCase();
-        users.forEach(user => {
-            if (user.username.toLowerCase().includes(searchValue)) {
-                const div = document.createElement('div');
-                div.textContent = user.username;
-                div.addEventListener('click', () => {
-                    alert(`${user.username}とトークを開始します`);
-                });
-                friendsList.appendChild(div);
-            }
-        });
-    });
-
-    // トーク機能
-    sendMessageBtn.addEventListener('click', () => {
-        const message = messageInput.value;
-        const chatHistory = document.getElementById('chat-history');
-        const div = document.createElement('div');
-        div.textContent = message;
-        chatHistory.appendChild(div);
-        messageInput.value = '';
+// 戻るボタン
+const backBtns = document.querySelectorAll('#back-btn');
+backBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        window.history.back();
     });
 });
