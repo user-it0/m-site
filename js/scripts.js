@@ -15,7 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 新規作成ボタン
     if (createAccountBtn) {
         createAccountBtn.addEventListener('click', () => {
-            window.location.href = 'signup.html';
+            const username = document.getElementById('username-input').value;
+            if (username) {
+                window.location.href = 'signup.html';
+            } else {
+                alert('ユーザー名を入力してください');
+            }
         });
     }
 
