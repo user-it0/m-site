@@ -7,41 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <!-- ログイン画面 -->
-        <div id="login-screen">
-            <input type="text" id="username-input" placeholder="アカウント名">
-            <button id="create-account-btn">新規作成</button>
-            <button id="login-btn">ログイン</button>
-        </div>
+    <div id="login-screen" class="screen">
+        <input type="text" id="username-input" placeholder="アカウント名">
+        <button id="create-account-btn">新規作成</button>
+        <button id="login-btn">ログイン</button>
+    </div>
 
-        <!-- サインアップ画面 -->
-        <div id="signup-screen" class="hidden">
-            <input type="text" id="new-username" placeholder="新しいユーザー名">
-            <input type="password" id="password" placeholder="パスワード">
-            <button id="signup-btn">登録</button>
-            <button id="back-to-login">ログイン画面に戻る</button>
-        </div>
+    <div id="signup-screen" class="screen hidden">
+        <input type="text" id="new-username" placeholder="新しいユーザー名">
+        <input type="password" id="password" placeholder="パスワード">
+        <button id="signup-btn">登録</button>
+        <button id="back-to-login">ログイン画面に戻る</button>
+    </div>
 
-        <!-- プログラム画面 -->
-        <div id="program-screen" class="hidden">
-            <button id="e-wisdom-btn">e-wisdom</button>
-            <button id="e-line-btn">e-line</button>
-        </div>
+    <div id="program-screen" class="screen hidden">
+        <button id="e-wisdom-btn">e-wisdom</button>
+        <button id="e-line-btn">e-line</button>
+    </div>
 
-        <!-- e-wisdom画面 -->
-        <div id="e-wisdom-screen" class="hidden">
-            <input type="text" id="question-input" placeholder="質問を入力">
-            <button id="post-question-btn">質問を投稿</button>
-            <button id="view-questions-btn">質問一覧</button>
-        </div>
+    <div id="e-wisdom-screen" class="screen hidden">
+        <input type="text" id="question-input" placeholder="質問を入力">
+        <button id="post-question-btn">質問を投稿</button>
+        <button id="view-questions-btn">質問一覧</button>
+    </div>
 
-        <!-- e-line画面 -->
-        <div id="e-line-screen" class="hidden">
-            <input type="text" id="user-search" placeholder="ユーザー名を入力">
-            <button id="send-request-btn">リクエストを送信</button>
-            <ul id="user-list"></ul>
-        </div>
+    <div id="e-line-screen" class="screen hidden">
+        <input type="text" id="user-search" placeholder="ユーザー名を入力">
+        <button id="send-request-btn">リクエストを送信</button>
+        <ul id="user-list"></ul>
     </div>
 
     <script src="script.js"></script>

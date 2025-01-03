@@ -5,7 +5,7 @@ body {
     background-color: #e0f7fa; /* 薄い青色の背景 */
 }
 
-#app {
+.screen {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
