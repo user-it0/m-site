@@ -36,7 +36,18 @@
     <!-- e-Line画面 -->
     <div id="e-line-page" class="page">
       <h1>e-Line</h1>
-      <p>友達とチャットができます。</p>
+      <div id="friend-list">
+        <h2>友達リスト</h2>
+        <ul id="friends"></ul>
+      </div>
+      <input type="text" id="add-friend-input" placeholder="友達の名前を入力">
+      <button id="add-friend">友達を追加</button>
+      <div id="chat-area" class="hidden">
+        <h2>チャット: <span id="chat-with"></span></h2>
+        <div id="chat-box"></div>
+        <input type="text" id="chat-input" placeholder="メッセージを入力">
+        <button id="send-message">送信</button>
+      </div>
       <button id="back-to-program-line">戻る</button>
     </div>
   </div>

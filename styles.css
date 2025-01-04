@@ -24,7 +24,7 @@ body {
     transform: translateX(0);
   }
   
-  h1 {
+  h1, h2 {
     margin-bottom: 20px;
   }
   
@@ -48,32 +48,36 @@ body {
     background-color: #0056b3;
   }
   
-  /* 個別スタイル */
-  #login-page {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
+  .hidden {
+    display: none;
   }
   
-  #program-page {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  #chat-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
   }
   
-  #e-wisdom-page {
-    background: linear-gradient(135deg, #ff7e5f, #feb47b);
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
+  #chat-box div {
+    margin: 5px 0;
   }
   
-  #e-line-page {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
-    padding: 20px;
-    border-radius: 8px;
+  #friend-list ul {
+    list-style: none;
+    padding: 0;
   }
   
+  #friend-list ul li {
+    padding: 5px;
+    cursor: pointer;
+    background: #eee;
+    margin: 5px 0;
+    border-radius: 5px;
+  }
+  
+  #friend-list ul li:hover {
+    background: #ddd;
+  }  
