@@ -1,74 +1,87 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const createAccountBtn = document.getElementById("createAccountBtn");
-    const loginBtn = document.getElementById("loginBtn");
-    const eWisdomBtn = document.getElementById("eWisdomBtn");
-    const eLineBtn = document.getElementById("eLineBtn");
-    const postQuestionBtn = document.getElementById("postQuestionBtn");
-    const viewQuestionsBtn = document.getElementById("viewQuestionsBtn");
-    const sendRequestBtn = document.getElementById("sendRequestBtn");
+    const pages = {
+      login: document.getElementById("login-page"),
+      program: document.getElementById("program-page"),
+      eWisdom: document.getElementById("e-wisdom-page"),
+      eLine: document.getElementById("e-line-page"),
+    };
   
-    const mainMenu = document.getElementById("mainMenu");
-    const programScreen = document.getElementById("programScreen");
-    const eWisdomScreen = document.getElementById("eWisdomScreen");
-    const eLineScreen = document.getElementById("eLineScreen");
-    const usernameInput = document.getElementById("usernameInput");
+    const usernameInput = document.getElementById("username");
+    const createAccountButton = document.getElementById("create-account");
+    const loginButton = document.getElementById("login");
+    const logoutButton = document.getElementById("logout");
+    const eWisdomButton = document.getElementById("e-wisdom");
+    const eLineButton = document.getElementById("e-line");
+    const backToProgramWisdom = document.getElementById("back-to-program-wisdom");
+    const backToProgramLine = document.getElementById("back-to-program-line");
   
-    // 画面を切り替える関数
-    function showScreen(screenId) {
-      // すべての画面を非表示に
-      const screens = document.querySelectorAll(".screen");
-      screens.forEach(screen => screen.style.display = "none");
+    const postQuestionButton = document.getElementById("post-question");
+    const questionInput = document.getElementById("question-input");
+    const questionList = document.getElementById("question-list");
   
-      // 指定された画面のみ表示
-      document.getElementById(screenId).style.display = "block";
-    }
+    let currentUser = null;
   
-    // 新規アカウント作成ボタンの動作
-    createAccountBtn.addEventListener("click", () => {
+    const showPage = (pageKey) => {
+      Object.values(pages).forEach((p) => p.classList.remove("active"));
+      pages[pageKey].classList.add("active");
+    };
+  
+    showPage("login");
+  
+    createAccountButton.addEventListener("click", () => {
       const username = usernameInput.value.trim();
-  
-      // ユーザー名が入力されているかをチェック
-      if (username === "") {
+      if (username) {
+        localStorage.setItem(username, JSON.stringify({ eWisdom: [] }));
+        alert("アカウントが作成されました！");
+        currentUser = username;
+        document.getElementById("current-user").textContent = currentUser;
+        showPage("program");
+      } else {
         alert("ユーザー名を入力してください。");
-        return;
       }
-  
-      // ユーザー名が入力されている場合、メインメニューを非表示にし、プログラム画面を表示
-      mainMenu.style.display = "none";
-      programScreen.style.display = "block";
     });
   
-    // ログインボタンの動作
-    loginBtn.addEventListener("click", () => {
-      mainMenu.style.display = "none";
-      programScreen.style.display = "block";
+    loginButton.addEventListener("click", () => {
+      const username = usernameInput.value.trim();
+      if (localStorage.getItem(username)) {
+        currentUser = username;
+        document.getElementById("current-user").textContent = currentUser;
+        showPage("program");
+      } else {
+        alert("アカウントが存在しません。");
+      }
     });
   
-    // e-wisdomボタンの動作
-    eWisdomBtn.addEventListener("click", () => {
-      showScreen("eWisdomScreen");
+    logoutButton.addEventListener("click", () => {
+      currentUser = null;
+      showPage("login");
     });
   
-    // e-lineボタンの動作
-    eLineBtn.addEventListener("click", () => {
-      showScreen("eLineScreen");
+    eWisdomButton.addEventListener("click", () => {
+      showPage("eWisdom");
     });
   
-    // 質問投稿ボタンの動作（仮の機能）
-    postQuestionBtn.addEventListener("click", () => {
-      alert("質問が投稿されました！");
+    eLineButton.addEventListener("click", () => {
+      showPage("eLine");
     });
   
-    // 質問一覧表示ボタンの動作（仮の機能）
-    viewQuestionsBtn.addEventListener("click", () => {
-      alert("質問一覧が表示されます！");
+    backToProgramWisdom.addEventListener("click", () => {
+      showPage("program");
     });
   
-    // ユーザー検索（e-lineのため）
-    sendRequestBtn.addEventListener("click", () => {
-      const userSearch = document.getElementById("userSearch").value;
-      const userList = document.getElementById("userList");
-      userList.innerHTML = `<li>${userSearch}</li>`;
+    backToProgramLine.addEventListener("click", () => {
+      showPage("program");
     });
-  });
   
+    postQuestionButton.addEventListener("click", () => {
+      const question = questionInput.value.trim();
+      if (question) {
+        const questionItem = document.createElement("div");
+        questionItem.textContent = question;
+        questionList.appendChild(questionItem);
+        questionInput.value = "";
+      } else {
+        alert("質問を入力してください。");
+      }
+    });
+  });  
