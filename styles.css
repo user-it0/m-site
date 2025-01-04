@@ -55,18 +55,79 @@ body {
     display: none;
   }
   
+  /* チャットボックス */
   #chat-box {
     border: 1px solid #ccc;
     border-radius: 5px;
-    height: 200px;
+    height: 400px;
     overflow-y: auto;
     padding: 10px;
     margin-bottom: 10px;
     background: #fff;
+    display: flex;
+    flex-direction: column;
   }
   
   #chat-box div {
     margin: 5px 0;
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+  }
+  
+  #chat-box .sent {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+  }
+  
+  #chat-box .received {
+    background-color: #e5e5e5;
+    color: black;
+    align-self: flex-start;
+  }
+  
+  #chat-box div span {
+    display: block;
+    word-wrap: break-word;
+  }
+  
+  #chat-box::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  #chat-box::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+  }
+  
+  /* 送信エリア */
+  #send-area {
+    display: flex;
+    align-items: center;
+  }
+  
+  #send-area input {
+    flex-grow: 1;
+    margin-right: 10px;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  #send-area button {
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #send-area button:hover {
+    background-color: #0056b3;
   }
   
   #friend-list ul {
@@ -87,7 +148,6 @@ body {
     background: #eee;
   }
   
-  /* スマートフォン向けレイアウト */
   @media (max-width: 768px) {
     body {
       flex-direction: column;
