@@ -19,13 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatBox = document.getElementById("chatBox");
   const chatInput = document.getElementById("chatInput");
   const sendMessageButton = document.getElementById("sendMessageButton");
+  const chatHistory = document.getElementById("chatHistory");
 
   let currentUser = "";
+  let currentFriend = "";
 
   loginButton.addEventListener("click", () => {
     const username = usernameInput.value.trim();
     if (username && !localStorage.getItem(username)) {
-      localStorage.setItem(username, JSON.stringify({ eLine: {} }));
+      localStorage.setItem(username, JSON.stringify({ eLine: {}, eWisdom: [] }));
       currentUser = username;
       localStorage.setItem("currentUser", currentUser);
       showProgramScreen();
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   registerButton.addEventListener("click", () => {
     const username = usernameInput.value.trim();
     if (username && !localStorage.getItem(username)) {
-      localStorage.setItem(username, JSON.stringify({ eLine: {} }));
+      localStorage.setItem(username, JSON.stringify({ eLine: {}, eWisdom: [] }));
       currentUser = username;
       localStorage.setItem("currentUser", currentUser);
       showProgramScreen();
@@ -69,8 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (question) {
       const userData = JSON.parse(localStorage.getItem(currentUser));
       const newQuestion = { question, answers: [] };
-      userData.eLine.questions = userData.eLine.questions || [];
-      userData.eLine.questions.push(newQuestion);
+      userData.eWisdom.push(newQuestion);
       localStorage.setItem(currentUser, JSON.stringify(userData));
       displayQuestions();
       questionInput.value = "";
@@ -81,10 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const friendName = friendInput.value.trim();
     if (friendName && friendName !== currentUser) {
       if (localStorage.getItem(friendName)) {
-        const userData = JSON.parse(localStorage.getItem(currentUser));
-        userData.eLine[friendName] = userData.eLine[friendName] || [];
-        localStorage.setItem(currentUser, JSON.stringify(userData));
+        currentFriend = friendName;
         updateFriendList();
+        loadChatHistory();
         friendInput.value = "";
       } else {
         alert("そのユーザーは存在しません。");
@@ -96,10 +96,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sendMessageButton.addEventListener("click", () => {
     const messageText = chatInput.value.trim();
-    if (messageText) {
+    if (messageText && currentFriend) {
       const userData = JSON.parse(localStorage.getItem(currentUser));
-      userData.eLine[friendName].push({ text: messageText, type: "sent" });
+      const friendData = JSON.parse(localStorage.getItem(currentFriend));
+
+      // ユーザーと友達のチャット履歴を追加
+      userData.eLine[currentFriend] = userData.eLine[currentFriend] || [];
+      friendData.eLine[currentUser] = friendData.eLine[currentUser] || [];
+
+      userData.eLine[currentFriend].push({ text: messageText, type: "sent" });
+      friendData.eLine[currentUser].push({ text: messageText, type: "received" });
+
       localStorage.setItem(currentUser, JSON.stringify(userData));
+      localStorage.setItem(currentFriend, JSON.stringify(friendData));
+
       addMessageToChat(messageText, "sent");
       chatInput.value = "";
     }
@@ -140,32 +150,43 @@ document.addEventListener("DOMContentLoaded", () => {
   const displayQuestions = () => {
     const userData = JSON.parse(localStorage.getItem(currentUser));
     questionList.innerHTML = "";
-    if (userData.eLine.questions) {
-      userData.eLine.questions.forEach((q) => {
-        const questionItem = document.createElement("li");
-        questionItem.textContent = q.question;
-        questionList.appendChild(questionItem);
-      });
-    }
+    userData.eWisdom.forEach((question, index) => {
+      const questionItem = document.createElement("li");
+      questionItem.textContent = question.question;
+      questionList.appendChild(questionItem);
+    });
   };
 
   const updateFriendList = () => {
     const userData = JSON.parse(localStorage.getItem(currentUser));
     friendList.innerHTML = "";
     for (let friend in userData.eLine) {
-      if (friend !== "questions") {
-        const friendItem = document.createElement("li");
-        friendItem.textContent = friend;
-        friendList.appendChild(friendItem);
-      }
+      const friendItem = document.createElement("li");
+      friendItem.textContent = friend;
+      friendList.appendChild(friendItem);
     }
+  };
+
+  const loadChatHistory = () => {
+    chatHistory.innerHTML = "";
+    const userData = JSON.parse(localStorage.getItem(currentUser));
+    const friendData = JSON.parse(localStorage.getItem(currentFriend));
+
+    const userChat = userData.eLine[currentFriend] || [];
+    const friendChat = friendData.eLine[currentUser] || [];
+
+    const chatHistoryMessages = [...userChat, ...friendChat];
+
+    chatHistoryMessages.forEach(msg => {
+      addMessageToChat(msg.text, msg.type);
+    });
   };
 
   const addMessageToChat = (message, type) => {
     const messageElement = document.createElement("div");
     messageElement.textContent = message;
     messageElement.className = type;
-    chatBox.appendChild(messageElement);
+    chatHistory.appendChild(messageElement);
   };
 
   // 初期状態

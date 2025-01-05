@@ -32,6 +32,24 @@ h2 {
   margin-bottom: 10px;
 }
 
+#chatHistory {
+  max-height: 300px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
+
+#chatHistory div {
+  margin: 10px 0;
+}
+
+#chatHistory .sent {
+  text-align: right;
+}
+
+#chatHistory .received {
+  text-align: left;
+}
+
 #chatBox {
   margin-top: 20px;
 }
