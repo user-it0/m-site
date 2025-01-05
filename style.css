@@ -41,6 +41,8 @@ input, textarea {
   padding: 10px;
   max-height: 300px;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
 .friend-item {
@@ -53,4 +55,23 @@ input, textarea {
 .friend-item:hover {
   background-color: #007bff;
   color: white;
+}
+
+.sent {
+  align-self: flex-end;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  max-width: 70%;
+}
+
+.received {
+  align-self: flex-start;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  max-width: 70%;
 }

@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const updateQuestionList = () => {
-    questionList.innerHTML = '';
+    questionList.innerHTML = "";
     const userData = JSON.parse(localStorage.getItem(currentUser));
     userData.eWisdom.forEach((question) => {
       const questionDiv = document.createElement("div");
@@ -128,20 +128,20 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const updateFriendList = () => {
-    friendList.innerHTML = '';
-    const friends = Object.keys(localStorage);
-    friends.forEach((friend) => {
-      if (friend !== currentUser) {
-        const friendItem = document.createElement("div");
-        friendItem.classList.add("friend-item");
-        friendItem.textContent = friend;
-        friendItem.addEventListener("click", () => {
-          activeChat = friend;
+    friendList.innerHTML = "";
+    const users = Object.keys(localStorage);
+    users.forEach((username) => {
+      if (username !== currentUser) {
+        const friendDiv = document.createElement("div");
+        friendDiv.classList.add("friend-item");
+        friendDiv.textContent = username;
+        friendDiv.addEventListener("click", () => {
+          activeChat = username;
           chatSection.style.display = "block";
           friendList.style.display = "none";
           updateChatHistory();
         });
-        friendList.appendChild(friendItem);
+        friendList.appendChild(friendDiv);
       }
     });
   };
