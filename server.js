@@ -9,12 +9,10 @@ const wss = new WebSocket.Server({ server });
 // サーバーの静的ファイルを提供
 app.use(express.static('public'));
 
-// WebSocket接続の管理
+// WebSocket接続を管理
 let users = {};
 
 wss.on('connection', (ws) => {
-  console.log('New client connected');
-  
   // ユーザーが接続したとき
   ws.on('message', (message) => {
     const data = JSON.parse(message);
@@ -23,17 +21,17 @@ wss.on('connection', (ws) => {
     if (type === 'message') {
       // メッセージ送信時
       if (users[to]) {
-        // 受信者がオンラインならメッセージを送る
+        // 受信者がオンラインならメッセージを送信
         users[to].send(JSON.stringify({ from, text }));
       }
     } else if (type === 'join') {
-      // 新しいユーザーが参加した時
+      // 新しいユーザーが参加したとき
       users[from] = ws;
     }
   });
 
   ws.on('close', () => {
-    console.log('Client disconnected');
+    // 接続が閉じられたとき
     for (let user in users) {
       if (users[user] === ws) {
         delete users[user];

@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         socket.send(JSON.stringify({ type: 'join', from: currentUser }));
         showPage("program");
       } else {
-        alert("ユーザー名が存在しません。");
+        alert("アカウントが存在しません。");
       }
     });
   
@@ -85,68 +85,47 @@ document.addEventListener("DOMContentLoaded", () => {
       showPage("eWisdom");
     });
   
-    backToProgramWisdom.addEventListener("click", () => {
-      showPage("program");
-    });
-  
-    postQuestionButton.addEventListener("click", () => {
-      const question = questionInput.value.trim();
-      if (question) {
-        const questions = JSON.parse(localStorage.getItem(currentUser)).eWisdom;
-        questions.push({ question });
-        localStorage.setItem(currentUser, JSON.stringify({ eWisdom: questions }));
-        updateQuestions();
-      }
-    });
-  
-    const updateQuestions = () => {
-      const questions = JSON.parse(localStorage.getItem(currentUser)).eWisdom;
-      questionList.innerHTML = "";
-      questions.forEach((q) => {
-        const div = document.createElement("div");
-        div.textContent = q.question;
-        questionList.appendChild(div);
-      });
-    };
-  
     eLineButton.addEventListener("click", () => {
       showPage("eLine");
+      updateFriendList();
+    });
+  
+    backToProgramWisdom.addEventListener("click", () => {
+      showPage("program");
     });
   
     backToProgramLine.addEventListener("click", () => {
       showPage("program");
     });
   
-    addFriendButton.addEventListener("click", () => {
-      const friendName = friendInput.value.trim();
-      if (friendName) {
+    postQuestionButton.addEventListener("click", () => {
+      const question = questionInput.value.trim();
+      if (question) {
         const userData = JSON.parse(localStorage.getItem(currentUser));
-        if (!userData.eLine[friendName]) {
-          userData.eLine[friendName] = [];
-          localStorage.setItem(currentUser, JSON.stringify(userData));
-          const friendItem = document.createElement("div");
-          friendItem.textContent = friendName;
-          friendItem.classList.add("friend-item");
-          friendItem.addEventListener("click", () => startChat(friendName));
-          friendList.appendChild(friendItem);
-        } else {
-          alert("既に友達リストに存在します。");
-        }
+        userData.eWisdom.push(question);
+        localStorage.setItem(currentUser, JSON.stringify(userData));
+        updateQuestionList();
+        questionInput.value = "";
       }
     });
   
-    const startChat = (friendName) => {
-      activeChat = friendName;
-      chatBox.innerHTML = "";
-      document.getElementById("active-friend").textContent = friendName;
-      chatSection.style.display = "block";
-      updateChatBox(friendName);
-    };
+    addFriendButton.addEventListener("click", () => {
+      const friendName = friendInput.value.trim();
+      if (friendName && localStorage.getItem(friendName)) {
+        activeChat = friendName;
+        chatSection.style.display = "block";
+        friendList.style.display = "none";
+        updateChatHistory();
+      } else {
+        alert("そのユーザーは存在しません。");
+      }
+    });
   
     sendMessageButton.addEventListener("click", () => {
       const messageText = chatInput.value.trim();
       if (messageText) {
         const userData = JSON.parse(localStorage.getItem(currentUser));
+        userData.eLine[activeChat] = userData.eLine[activeChat] || [];
         userData.eLine[activeChat].push({ text: messageText, type: "sent" });
         localStorage.setItem(currentUser, JSON.stringify(userData));
         socket.send(JSON.stringify({ type: "message", from: currentUser, to: activeChat, text: messageText }));
@@ -163,15 +142,32 @@ document.addEventListener("DOMContentLoaded", () => {
       chatBox.scrollTop = chatBox.scrollHeight;
     };
   
-    const updateChatBox = (friendName) => {
-      const userData = JSON.parse(localStorage.getItem(currentUser));
-      const chatHistory = userData.eLine[friendName] || [];
-      chatBox.innerHTML = "";
-      chatHistory.forEach(msg => {
-        addMessageToChat(msg.text, msg.type);
+    const updateFriendList = () => {
+      friendList.innerHTML = '';
+      const friends = Object.keys(localStorage);
+      friends.forEach((friend) => {
+        if (friend !== currentUser) {
+          const friendItem = document.createElement("div");
+          friendItem.classList.add("friend-item");
+          friendItem.textContent = friend;
+          friendItem.addEventListener("click", () => {
+            activeChat = friend;
+            chatSection.style.display = "block";
+            friendList.style.display = "none";
+            updateChatHistory();
+          });
+          friendList.appendChild(friendItem);
+        }
       });
     };
   
-    updateQuestions();
+    const updateChatHistory = () => {
+      chatBox.innerHTML = '';
+      const userData = JSON.parse(localStorage.getItem(currentUser));
+      const chatHistory = userData.eLine[activeChat] || [];
+      chatHistory.forEach((message) => {
+        addMessageToChat(message.text, message.type);
+      });
+    };
   });
   

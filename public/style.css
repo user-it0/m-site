@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .page {
+    display: none;
+  }
+  
+  .page.active {
+    display: block;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  input, textarea {
+    margin-top: 10px;
+    padding: 8px;
+    width: 80%;
+  }
+  
+  #friend-list .friend-item {
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  #chat-box {
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+  
+  #chat-box .sent {
+    text-align: right;
+  }
+  
+  #chat-box .received {
+    text-align: left;
+  }
+  

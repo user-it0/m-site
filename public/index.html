@@ -1,49 +1,48 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-line</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>e-line Chat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="login-page" class="page active">
-        <h1>ログイン</h1>
-        <input type="text" id="username" placeholder="ユーザー名" />
-        <button id="create-account">アカウント作成</button>
-        <button id="login">ログイン</button>
+
+  <div id="login-page" class="page">
+    <h2>ログイン</h2>
+    <input type="text" id="username" placeholder="ユーザー名" required>
+    <button id="login">ログイン</button>
+    <button id="create-account">アカウント作成</button>
+  </div>
+
+  <div id="program-page" class="page">
+    <h2>ようこそ <span id="current-user"></span></h2>
+    <button id="e-line">e-line</button>
+    <button id="e-wisdom">e-wisdom</button>
+    <button id="logout">ログアウト</button>
+  </div>
+
+  <div id="e-line-page" class="page">
+    <h2>e-line チャット</h2>
+    <div id="friend-list"></div>
+    <input type="text" id="friend-input" placeholder="友達のユーザー名">
+    <button id="add-friend">友達追加</button>
+    <div id="chat-section" style="display:none;">
+      <div id="chat-box"></div>
+      <input type="text" id="chat-input" placeholder="メッセージを入力">
+      <button id="send-message">送信</button>
     </div>
+    <button id="back-to-program-line">戻る</button>
+  </div>
 
-    <div id="program-page" class="page">
-        <h1>ようこそ、<span id="current-user"></span>さん</h1>
-        <button id="e-wisdom">e-wisdom</button>
-        <button id="e-line">e-line</button>
-        <button id="logout">ログアウト</button>
-    </div>
+  <div id="e-wisdom-page" class="page">
+    <h2>e-wisdom</h2>
+    <textarea id="question-input" placeholder="質問を入力"></textarea>
+    <button id="post-question">質問投稿</button>
+    <div id="question-list"></div>
+    <button id="back-to-program-wisdom">戻る</button>
+  </div>
 
-    <div id="e-wisdom-page" class="page">
-        <h1>e-wisdom</h1>
-        <textarea id="question-input" placeholder="質問を入力"></textarea>
-        <button id="post-question">質問投稿</button>
-        <div id="question-list"></div>
-        <button id="back-to-program-wisdom">戻る</button>
-    </div>
-
-    <div id="e-line-page" class="page">
-        <h1>e-line</h1>
-        <input type="text" id="friend-input" placeholder="友達の名前を入力" />
-        <button id="add-friend">友達追加</button>
-        <div id="friend-list"></div>
-
-        <div id="chat-section" style="display:none;">
-            <h2>チャット - <span id="active-friend"></span></h2>
-            <div id="chat-box"></div>
-            <input type="text" id="chat-input" placeholder="メッセージを入力" />
-            <button id="send-message">送信</button>
-            <button id="back-to-program-line">戻る</button>
-        </div>
-    </div>
-
-    <script src="scripts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
