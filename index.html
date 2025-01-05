@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>m-port</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login-section">
+    <h2>ログイン</h2>
+    <input type="text" id="username" placeholder="ユーザー名">
+    <input type="password" id="password" placeholder="パスワード">
+    <button id="login-btn">ログイン</button>
+    <button id="register-btn">新規登録</button>
+  </div>
+
+  <div id="main-section" style="display:none;">
+    <h2>Welcome, <span id="welcome-username"></span></h2>
+    <button id="e-wisdom-btn">e-wisdom</button>
+    <button id="e-line-btn">e-line</button>
+    <div id="e-wisdom-section" style="display:none;">
+      <h3>質問を投稿する</h3>
+      <textarea id="question-input"></textarea>
+      <button id="post-question-btn">質問を投稿</button>
+      <div id="question-list"></div>
+    </div>
+
+    <div id="e-line-section" style="display:none;">
+      <h3>友達リスト</h3>
+      <input type="text" id="friend-input" placeholder="友達のユーザー名">
+      <button id="add-friend-btn">追加</button>
+      <div id="friend-list"></div>
+
+      <div id="chat-section" style="display:none;">
+        <h3>チャット</h3>
+        <div id="chat-box"></div>
+        <textarea id="chat-input" placeholder="メッセージを入力"></textarea>
+        <button id="send-message-btn">送信</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
