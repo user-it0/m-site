@@ -8,43 +8,39 @@
 </head>
 <body>
   <!-- ログイン画面 -->
-  <div id="loginScreen" class="screen">
-    <h1>ログイン</h1>
-    <input type="text" id="usernameInput" placeholder="ユーザー名">
-    <input type="password" id="passwordInput" placeholder="パスワード">
+  <div id="loginScreen">
+    <h2>ログイン / 新規登録</h2>
+    <input type="text" id="usernameInput" placeholder="ユーザー名" />
     <button id="loginButton">ログイン</button>
     <button id="registerButton">新規登録</button>
   </div>
 
   <!-- プログラム画面 -->
-  <div id="programScreen" class="screen">
-    <h1>ようこそ、<span id="welcomeUser"></span>さん！</h1>
+  <div id="programScreen" class="screen" style="display: none;">
+    <h2>ようこそ、<span id="usernameDisplay"></span></h2>
     <button id="logoutButton">ログアウト</button>
     <button id="eWisdomButton">e-Wisdom</button>
     <button id="eLineButton">e-Line</button>
   </div>
 
   <!-- e-Wisdom画面 -->
-  <div id="eWisdomScreen" class="screen">
-    <h1>e-Wisdom</h1>
-    <textarea id="questionInput" placeholder="質問を入力してください"></textarea>
+  <div id="eWisdomScreen" class="screen" style="display: none;">
+    <h2>e-Wisdom</h2>
+    <input type="text" id="questionInput" placeholder="質問を入力" />
     <button id="postQuestionButton">質問を投稿</button>
-    <div id="questionList"></div>
-    <button id="backToProgramButton">戻る</button>
+    <ul id="questionList"></ul>
   </div>
 
   <!-- e-Line画面 -->
-  <div id="eLineScreen" class="screen">
-    <h1>e-Line</h1>
-    <input type="text" id="friendInput" placeholder="友達のユーザー名">
-    <button id="addFriendButton">友達追加</button>
-    <div id="friendList"></div>
-    <div id="chatContainer">
-      <div id="chatBox"></div>
-      <input type="text" id="chatInput" placeholder="メッセージを入力">
+  <div id="eLineScreen" class="screen" style="display: none;">
+    <h2>e-Line</h2>
+    <input type="text" id="friendInput" placeholder="友達の名前" />
+    <button id="addFriendButton">友達を追加</button>
+    <ul id="friendList"></ul>
+    <div id="chatBox">
+      <input type="text" id="chatInput" placeholder="メッセージを入力" />
       <button id="sendMessageButton">送信</button>
     </div>
-    <button id="backToProgramFromLineButton">戻る</button>
   </div>
 
   <script src="scripts.js"></script>

@@ -1,41 +1,46 @@
 body {
   font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-top: 10px;
+  width: 300px;
 }
 
 .screen {
   display: none;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  cursor: pointer;
+h2 {
+  font-size: 24px;
 }
 
-input, textarea {
-  padding: 10px;
-  margin: 10px;
+#questionList {
+  list-style: none;
+  padding: 0;
+}
+
+#questionList li {
+  margin-bottom: 10px;
 }
 
 #chatBox {
-  border: 1px solid #ccc;
-  height: 300px;
-  overflow-y: scroll;
+  margin-top: 20px;
 }
 
-#chatBox .sent {
-  text-align: right;
+#chatBox input {
+  width: 200px;
+  padding: 10px;
 }
 
-#chatBox .received {
-  text-align: left;
-}
-
-#friendList div {
-  padding: 5px;
-  cursor: pointer;
-}
-
-#friendList div:hover {
-  background-color: #f0f0f0;
+#chatBox button {
+  padding: 10px;
 }
