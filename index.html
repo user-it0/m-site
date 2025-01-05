@@ -7,46 +7,46 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app">
-    <!-- ログイン画面 -->
-    <div id="login-page" class="page active">
-      <h1>m-port へようこそ</h1>
-      <input type="text" id="username" placeholder="ユーザー名を入力">
-      <button id="create-account">新規アカウント作成</button>
-      <button id="login">ログイン</button>
-    </div>
-
-    <!-- プログラム画面 -->
-    <div id="program-page" class="page">
-      <h1>こんにちは、<span id="current-user"></span> さん</h1>
-      <button id="e-wisdom">e-Wisdom</button>
-      <button id="e-line">e-Line</button>
-      <button id="logout">ログアウト</button>
-    </div>
-
-    <!-- e-Wisdom画面 -->
-    <div id="e-wisdom-page" class="page">
-      <h1>e-Wisdom</h1>
-      <input type="text" id="question-input" placeholder="質問を入力">
-      <button id="post-question">質問を投稿</button>
-      <div id="question-list"></div>
-      <button id="back-to-program-wisdom">戻る</button>
-    </div>
-
-    <!-- e-Line画面 -->
-    <div id="e-line-page" class="page">
-      <h1>e-Line</h1>
-      <input type="text" id="friend-input" placeholder="友達の名前を入力">
-      <button id="add-friend">友達を追加</button>
-      <div id="friend-list"></div>
-      <div id="chat-section" style="display: none;">
-        <div id="chat-box"></div>
-        <input type="text" id="chat-input" placeholder="メッセージを入力">
-        <button id="send-message">送信</button>
-      </div>
-      <button id="back-to-program-line">戻る</button>
-    </div>
+  <!-- ログイン画面 -->
+  <div id="loginScreen" class="screen">
+    <h1>ログイン</h1>
+    <input type="text" id="usernameInput" placeholder="ユーザー名">
+    <input type="password" id="passwordInput" placeholder="パスワード">
+    <button id="loginButton">ログイン</button>
+    <button id="registerButton">新規登録</button>
   </div>
+
+  <!-- プログラム画面 -->
+  <div id="programScreen" class="screen">
+    <h1>ようこそ、<span id="welcomeUser"></span>さん！</h1>
+    <button id="logoutButton">ログアウト</button>
+    <button id="eWisdomButton">e-Wisdom</button>
+    <button id="eLineButton">e-Line</button>
+  </div>
+
+  <!-- e-Wisdom画面 -->
+  <div id="eWisdomScreen" class="screen">
+    <h1>e-Wisdom</h1>
+    <textarea id="questionInput" placeholder="質問を入力してください"></textarea>
+    <button id="postQuestionButton">質問を投稿</button>
+    <div id="questionList"></div>
+    <button id="backToProgramButton">戻る</button>
+  </div>
+
+  <!-- e-Line画面 -->
+  <div id="eLineScreen" class="screen">
+    <h1>e-Line</h1>
+    <input type="text" id="friendInput" placeholder="友達のユーザー名">
+    <button id="addFriendButton">友達追加</button>
+    <div id="friendList"></div>
+    <div id="chatContainer">
+      <div id="chatBox"></div>
+      <input type="text" id="chatInput" placeholder="メッセージを入力">
+      <button id="sendMessageButton">送信</button>
+    </div>
+    <button id="backToProgramFromLineButton">戻る</button>
+  </div>
+
   <script src="scripts.js"></script>
 </body>
 </html>

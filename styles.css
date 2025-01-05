@@ -1,81 +1,41 @@
-/* 基本スタイル */
 body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
 }
 
-#app {
-  width: 300px;
-  text-align: center;
-  padding: 20px;
-}
-
-.page {
+.screen {
   display: none;
-}
-
-.page.active {
-  display: block;
 }
 
 button {
   padding: 10px 20px;
   margin: 10px;
-  border: none;
-  background-color: #007bff;
-  color: white;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-input[type="text"] {
+input, textarea {
   padding: 10px;
   margin: 10px;
-  width: 80%;
+}
+
+#chatBox {
   border: 1px solid #ccc;
-  border-radius: 5px;
+  height: 300px;
+  overflow-y: scroll;
 }
 
-/* e-Line 特定のスタイル */
-#friend-list, #chat-box {
-  margin-top: 10px;
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-#chat-box div {
-  margin-bottom: 10px;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-#chat-box .sent {
-  background-color: #e0ffe0;
+#chatBox .sent {
   text-align: right;
 }
 
-#chat-box .received {
-  background-color: #f0f0f0;
+#chatBox .received {
+  text-align: left;
 }
 
-.friend-item {
+#friendList div {
   padding: 5px;
   cursor: pointer;
 }
 
-.friend-item:hover {
-  background-color: #f1f1f1;
+#friendList div:hover {
+  background-color: #f0f0f0;
 }

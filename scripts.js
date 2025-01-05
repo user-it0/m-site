@@ -1,132 +1,134 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const pages = {
-    login: document.getElementById("login-page"),
-    program: document.getElementById("program-page"),
-    eWisdom: document.getElementById("e-wisdom-page"),
-    eLine: document.getElementById("e-line-page"),
-  };
+  const loginScreen = document.getElementById("loginScreen");
+  const programScreen = document.getElementById("programScreen");
+  const eWisdomScreen = document.getElementById("eWisdomScreen");
+  const eLineScreen = document.getElementById("eLineScreen");
 
-  const usernameInput = document.getElementById("username");
-  const createAccountButton = document.getElementById("create-account");
-  const loginButton = document.getElementById("login");
-  const logoutButton = document.getElementById("logout");
-  const eWisdomButton = document.getElementById("e-wisdom");
-  const eLineButton = document.getElementById("e-line");
-  const backToProgramWisdom = document.getElementById("back-to-program-wisdom");
-  const backToProgramLine = document.getElementById("back-to-program-line");
+  const loginButton = document.getElementById("loginButton");
+  const registerButton = document.getElementById("registerButton");
+  const logoutButton = document.getElementById("logoutButton");
+  const eWisdomButton = document.getElementById("eWisdomButton");
+  const eLineButton = document.getElementById("eLineButton");
+  const backToProgramButton = document.getElementById("backToProgramButton");
+  const backToProgramFromLineButton = document.getElementById("backToProgramFromLineButton");
 
-  const postQuestionButton = document.getElementById("post-question");
-  const questionInput = document.getElementById("question-input");
-  const questionList = document.getElementById("question-list");
+  const usernameInput = document.getElementById("usernameInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const welcomeUser = document.getElementById("welcomeUser");
 
-  const friendInput = document.getElementById("friend-input");
-  const addFriendButton = document.getElementById("add-friend");
-  const friendList = document.getElementById("friend-list");
-  const chatSection = document.getElementById("chat-section");
-  const chatBox = document.getElementById("chat-box");
-  const chatInput = document.getElementById("chat-input");
-  const sendMessageButton = document.getElementById("send-message");
+  const questionInput = document.getElementById("questionInput");
+  const postQuestionButton = document.getElementById("postQuestionButton");
+  const questionList = document.getElementById("questionList");
+
+  const friendInput = document.getElementById("friendInput");
+  const addFriendButton = document.getElementById("addFriendButton");
+  const friendList = document.getElementById("friendList");
+  const chatBox = document.getElementById("chatBox");
+  const chatInput = document.getElementById("chatInput");
+  const sendMessageButton = document.getElementById("sendMessageButton");
 
   let currentUser = null;
   let activeChat = null;
 
-  const showPage = (pageKey) => {
-    Object.values(pages).forEach((p) => p.classList.remove("active"));
-    pages[pageKey].classList.add("active");
-  };
-
-  showPage("login");
-
-  createAccountButton.addEventListener("click", () => {
-    const username = usernameInput.value.trim();
-    if (username) {
-      localStorage.setItem(username, JSON.stringify({ eWisdom: [], eLine: {} }));
-      alert("アカウントが作成されました！");
-      currentUser = username;
-      document.getElementById("current-user").textContent = currentUser;
-      showPage("program");
-    } else {
-      alert("ユーザー名を入力してください。");
-    }
-  });
-
+  // ログイン処理
   loginButton.addEventListener("click", () => {
     const username = usernameInput.value.trim();
-    if (localStorage.getItem(username)) {
-      currentUser = username;
-      document.getElementById("current-user").textContent = currentUser;
-      showPage("program");
+    const password = passwordInput.value.trim();
+
+    if (username && password) {
+      const userData = localStorage.getItem(username);
+      if (userData && JSON.parse(userData).password === password) {
+        currentUser = username;
+        localStorage.setItem("currentUser", username);
+        switchScreen(programScreen);
+        welcomeUser.textContent = username;
+      } else {
+        alert("ユーザー名またはパスワードが違います。");
+      }
     } else {
-      alert("アカウントが存在しません。");
+      alert("ユーザー名とパスワードを入力してください。");
     }
   });
 
+  // 新規登録処理
+  registerButton.addEventListener("click", () => {
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if (username && password) {
+      const userData = {
+        username: username,
+        password: password,
+        eLine: {},
+      };
+      localStorage.setItem(username, JSON.stringify(userData));
+      alert("新規登録が完了しました。ログインしてください。");
+    } else {
+      alert("ユーザー名とパスワードを入力してください。");
+    }
+  });
+
+  // ログアウト処理
   logoutButton.addEventListener("click", () => {
+    localStorage.removeItem("currentUser");
     currentUser = null;
-    showPage("login");
+    switchScreen(loginScreen);
   });
 
+  // e-Wisdomボタン
   eWisdomButton.addEventListener("click", () => {
-    showPage("eWisdom");
+    switchScreen(eWisdomScreen);
   });
 
+  // e-Lineボタン
   eLineButton.addEventListener("click", () => {
-    showPage("eLine");
-    updateFriendList();
+    switchScreen(eLineScreen);
+    loadFriends();
   });
 
-  backToProgramWisdom.addEventListener("click", () => {
-    showPage("program");
-  });
-
-  backToProgramLine.addEventListener("click", () => {
-    showPage("program");
-  });
-
+  // 質問投稿ボタン
   postQuestionButton.addEventListener("click", () => {
     const question = questionInput.value.trim();
     if (question) {
-      const questionItem = document.createElement("div");
-      questionItem.textContent = question;
-      questionList.appendChild(questionItem);
+      const userData = JSON.parse(localStorage.getItem(currentUser));
+      userData.questions = userData.questions || [];
+      userData.questions.push({ question: question, answers: [] });
+      localStorage.setItem(currentUser, JSON.stringify(userData));
+      loadQuestions();
       questionInput.value = "";
-    } else {
-      alert("質問を入力してください。");
     }
   });
 
+  // 戻るボタン (e-Wisdom)
+  backToProgramButton.addEventListener("click", () => {
+    switchScreen(programScreen);
+  });
+
+  // 戻るボタン (e-Line)
+  backToProgramFromLineButton.addEventListener("click", () => {
+    switchScreen(programScreen);
+  });
+
+  // 友達追加ボタン
   addFriendButton.addEventListener("click", () => {
     const friendName = friendInput.value.trim();
     if (friendName && friendName !== currentUser) {
-      const userData = JSON.parse(localStorage.getItem(currentUser));
-      userData.eLine[friendName] = userData.eLine[friendName] || [];
-      localStorage.setItem(currentUser, JSON.stringify(userData));
-      updateFriendList();
-      friendInput.value = "";
+      // ローカルストレージで友達の存在を確認
+      if (localStorage.getItem(friendName)) {
+        const userData = JSON.parse(localStorage.getItem(currentUser));
+        userData.eLine[friendName] = userData.eLine[friendName] || [];
+        localStorage.setItem(currentUser, JSON.stringify(userData));
+        loadFriends();
+        friendInput.value = "";
+      } else {
+        alert("そのユーザーは存在しません。");
+      }
     } else {
       alert("友達の名前を正しく入力してください。");
     }
   });
 
-  const updateFriendList = () => {
-    friendList.innerHTML = "";
-    const userData = JSON.parse(localStorage.getItem(currentUser));
-    Object.keys(userData.eLine).forEach((friend) => {
-      const friendItem = document.createElement("div");
-      friendItem.textContent = friend;
-      friendItem.classList.add("friend-item");
-      friendItem.addEventListener("click", () => {
-        activeChat = friend;
-        chatSection.style.display = "block";
-        chatBox.innerHTML = "";
-        userData.eLine[activeChat].forEach((msg) => {
-          addMessageToChat(msg.text, msg.type);
-        });
-      });
-      friendList.appendChild(friendItem);
-    });
-  };
-
+  // メッセージ送信ボタン
   sendMessageButton.addEventListener("click", () => {
     const messageText = chatInput.value.trim();
     if (messageText) {
@@ -138,11 +140,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const addMessageToChat = (message, type) => {
-    const messageDiv = document.createElement("div");
-    messageDiv.textContent = message;
-    messageDiv.classList.add(type);
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+  const switchScreen = (screen) => {
+    document.querySelectorAll(".screen").forEach((s) => {
+      s.style.display = "none";
+    });
+    screen.style.display = "block";
   };
+
+  const loadQuestions = () => {
+    const userData = JSON.parse(localStorage.getItem(currentUser));
+    questionList.innerHTML = "";
+    (userData.questions || []).forEach((q, index) => {
+      const questionElement = document.createElement("div");
+      questionElement.textContent = q.question;
+      questionList.appendChild(questionElement);
+    });
+  };
+
+  const loadFriends = () => {
+    const userData = JSON.parse(localStorage.getItem(currentUser));
+    friendList.innerHTML = "";
+    Object.keys(userData.eLine).forEach((friend) => {
+      const friendElement = document.createElement("div");
+      friendElement.textContent = friend;
+      friendElement.addEventListener("click", () => {
+        activeChat = friend;
+        loadChat();
+      });
+      friendList.appendChild(friendElement);
+    });
+  };
+
+  const loadChat = () => {
+    const userData = JSON.parse(localStorage.getItem(currentUser));
+    chatBox.innerHTML = "";
+    userData.eLine[activeChat].forEach((msg) => {
+      const messageElement = document.createElement("div");
+      messageElement.classList.add(msg.type);
+      messageElement.textContent = msg.text;
+      chatBox.appendChild(messageElement);
+    });
+  };
+
+  const addMessageToChat = (message, type) => {
+    const messageElement = document.createElement("div");
+    messageElement.classList.add(type);
+    messageElement.textContent = message;
+    chatBox.appendChild(messageElement);
+  };
+
+  switchScreen(loginScreen);
 });
