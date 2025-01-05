@@ -3,34 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>e-line</title>
+  <title>m-port</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- ログインページ -->
-  <div id="login-page" class="page active">
-    <h1>ログイン</h1>
-    <input type="text" id="username" placeholder="ユーザー名" />
-    <input type="password" id="password" placeholder="パスワード" />
-    <button id="login-btn">ログイン</button>
+  <div id="app">
+    <!-- ログイン画面 -->
+    <div id="login-page" class="page active">
+      <h1>m-port へようこそ</h1>
+      <input type="text" id="username" placeholder="ユーザー名を入力">
+      <button id="create-account">新規アカウント作成</button>
+      <button id="login">ログイン</button>
+    </div>
+
+    <!-- プログラム画面 -->
+    <div id="program-page" class="page">
+      <h1>こんにちは、<span id="current-user"></span> さん</h1>
+      <button id="e-wisdom">e-Wisdom</button>
+      <button id="e-line">e-Line</button>
+      <button id="logout">ログアウト</button>
+    </div>
+
+    <!-- e-Wisdom画面 -->
+    <div id="e-wisdom-page" class="page">
+      <h1>e-Wisdom</h1>
+      <input type="text" id="question-input" placeholder="質問を入力">
+      <button id="post-question">質問を投稿</button>
+      <div id="question-list"></div>
+      <button id="back-to-program-wisdom">戻る</button>
+    </div>
+
+    <!-- e-Line画面 -->
+    <div id="e-line-page" class="page">
+      <h1>e-Line</h1>
+      <input type="text" id="friend-input" placeholder="友達の名前を入力">
+      <button id="add-friend">友達を追加</button>
+      <div id="friend-list"></div>
+      <div id="chat-section" style="display: none;">
+        <div id="chat-box"></div>
+        <input type="text" id="chat-input" placeholder="メッセージを入力">
+        <button id="send-message">送信</button>
+      </div>
+      <button id="back-to-program-line">戻る</button>
+    </div>
   </div>
-
-  <!-- チャットページ -->
-  <div id="chat-page" class="page">
-    <div id="chat-header">
-      <h1>e-line チャット</h1>
-      <button id="logout-btn">ログアウト</button>
-    </div>
-    <div id="chat-box">
-      <!-- メッセージがここに表示される -->
-    </div>
-
-    <div id="send-area">
-      <input type="text" id="message-input" placeholder="メッセージを入力..." />
-      <button id="send-button">送信</button>
-    </div>
-  </div>
-
   <script src="scripts.js"></script>
 </body>
 </html>

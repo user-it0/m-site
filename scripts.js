@@ -1,84 +1,148 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const loginPage = document.getElementById("login-page");
-  const chatPage = document.getElementById("chat-page");
-  const loginButton = document.getElementById("login-btn");
-  const usernameInput = document.getElementById("username");
-  const passwordInput = document.getElementById("password");
-  const messageInput = document.getElementById("message-input");
-  const sendButton = document.getElementById("send-button");
-  const chatBox = document.getElementById("chat-box");
-  const logoutButton = document.getElementById("logout-btn");
-
-  let messages = [
-    { text: "こんにちは！", sender: "received" },
-    { text: "やあ、元気？", sender: "sent" },
-    { text: "はい、元気です！", sender: "received" }
-  ];
-
-  // ログイン処理
-  loginButton.addEventListener("click", () => {
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
-
-    if (username && password) {
-      loginPage.classList.remove("active");
-      chatPage.classList.add("active");
-    } else {
-      alert("ユーザー名とパスワードを入力してください！");
-    }
-  });
-
-  // チャットのメッセージを表示する関数
-  const renderMessages = () => {
-    chatBox.innerHTML = "";
-    messages.forEach((message) => {
-      const div = document.createElement("div");
-      div.classList.add("message", message.sender);
-      div.innerHTML = `<span>${message.text}</span>`;
-      chatBox.appendChild(div);
-    });
-    chatBox.scrollTop = chatBox.scrollHeight;  // 新しいメッセージが下に表示されるように
+  const pages = {
+    login: document.getElementById("login-page"),
+    program: document.getElementById("program-page"),
+    eWisdom: document.getElementById("e-wisdom-page"),
+    eLine: document.getElementById("e-line-page"),
   };
 
-  // メッセージ送信処理
-  sendButton.addEventListener("click", () => {
-    const text = messageInput.value.trim();
-    if (text !== "") {
-      // 送信中のメッセージを表示
-      const div = document.createElement("div");
-      div.classList.add("message", "sent", "loading");
-      div.innerHTML = `<span>送信中...</span>`;
-      chatBox.appendChild(div);
-      chatBox.scrollTop = chatBox.scrollHeight;
+  const usernameInput = document.getElementById("username");
+  const createAccountButton = document.getElementById("create-account");
+  const loginButton = document.getElementById("login");
+  const logoutButton = document.getElementById("logout");
+  const eWisdomButton = document.getElementById("e-wisdom");
+  const eLineButton = document.getElementById("e-line");
+  const backToProgramWisdom = document.getElementById("back-to-program-wisdom");
+  const backToProgramLine = document.getElementById("back-to-program-line");
 
-      // 1秒後にメッセージを確定
-      setTimeout(() => {
-        div.classList.remove("loading");
-        div.innerHTML = `<span>${text}</span>`;
-        messages.push({ text, sender: "sent" });
-        messageInput.value = "";
-        renderMessages();
-      }, 1000);  // 送信後1秒遅れてメッセージ表示
+  const postQuestionButton = document.getElementById("post-question");
+  const questionInput = document.getElementById("question-input");
+  const questionList = document.getElementById("question-list");
+
+  const friendInput = document.getElementById("friend-input");
+  const addFriendButton = document.getElementById("add-friend");
+  const friendList = document.getElementById("friend-list");
+  const chatSection = document.getElementById("chat-section");
+  const chatBox = document.getElementById("chat-box");
+  const chatInput = document.getElementById("chat-input");
+  const sendMessageButton = document.getElementById("send-message");
+
+  let currentUser = null;
+  let activeChat = null;
+
+  const showPage = (pageKey) => {
+    Object.values(pages).forEach((p) => p.classList.remove("active"));
+    pages[pageKey].classList.add("active");
+  };
+
+  showPage("login");
+
+  createAccountButton.addEventListener("click", () => {
+    const username = usernameInput.value.trim();
+    if (username) {
+      localStorage.setItem(username, JSON.stringify({ eWisdom: [], eLine: {} }));
+      alert("アカウントが作成されました！");
+      currentUser = username;
+      document.getElementById("current-user").textContent = currentUser;
+      showPage("program");
+    } else {
+      alert("ユーザー名を入力してください。");
     }
   });
 
-  // メッセージ受信処理 (仮に自動でメッセージを受信する)
-  setInterval(() => {
-    const responses = [
-      "こんにちは！調子はどうですか？",
-      "何か質問がありますか？"
-    ];
-    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-    messages.push({ text: randomResponse, sender: "received" });
-    renderMessages();
-  }, 5000);  // 5秒ごとに受信メッセージを追加
-
-  // ログアウト処理
-  logoutButton.addEventListener("click", () => {
-    chatPage.classList.remove("active");
-    loginPage.classList.add("active");
+  loginButton.addEventListener("click", () => {
+    const username = usernameInput.value.trim();
+    if (localStorage.getItem(username)) {
+      currentUser = username;
+      document.getElementById("current-user").textContent = currentUser;
+      showPage("program");
+    } else {
+      alert("アカウントが存在しません。");
+    }
   });
 
-  // 初期表示
-  renderMessages();
+  logoutButton.addEventListener("click", () => {
+    currentUser = null;
+    showPage("login");
+  });
+
+  eWisdomButton.addEventListener("click", () => {
+    showPage("eWisdom");
+  });
+
+  eLineButton.addEventListener("click", () => {
+    showPage("eLine");
+    updateFriendList();
+  });
+
+  backToProgramWisdom.addEventListener("click", () => {
+    showPage("program");
+  });
+
+  backToProgramLine.addEventListener("click", () => {
+    showPage("program");
+  });
+
+  postQuestionButton.addEventListener("click", () => {
+    const question = questionInput.value.trim();
+    if (question) {
+      const questionItem = document.createElement("div");
+      questionItem.textContent = question;
+      questionList.appendChild(questionItem);
+      questionInput.value = "";
+    } else {
+      alert("質問を入力してください。");
+    }
+  });
+
+  addFriendButton.addEventListener("click", () => {
+    const friendName = friendInput.value.trim();
+    if (friendName && friendName !== currentUser) {
+      const userData = JSON.parse(localStorage.getItem(currentUser));
+      userData.eLine[friendName] = userData.eLine[friendName] || [];
+      localStorage.setItem(currentUser, JSON.stringify(userData));
+      updateFriendList();
+      friendInput.value = "";
+    } else {
+      alert("友達の名前を正しく入力してください。");
+    }
+  });
+
+  const updateFriendList = () => {
+    friendList.innerHTML = "";
+    const userData = JSON.parse(localStorage.getItem(currentUser));
+    Object.keys(userData.eLine).forEach((friend) => {
+      const friendItem = document.createElement("div");
+      friendItem.textContent = friend;
+      friendItem.classList.add("friend-item");
+      friendItem.addEventListener("click", () => {
+        activeChat = friend;
+        chatSection.style.display = "block";
+        chatBox.innerHTML = "";
+        userData.eLine[activeChat].forEach((msg) => {
+          addMessageToChat(msg.text, msg.type);
+        });
+      });
+      friendList.appendChild(friendItem);
+    });
+  };
+
+  sendMessageButton.addEventListener("click", () => {
+    const messageText = chatInput.value.trim();
+    if (messageText) {
+      const userData = JSON.parse(localStorage.getItem(currentUser));
+      userData.eLine[activeChat].push({ text: messageText, type: "sent" });
+      localStorage.setItem(currentUser, JSON.stringify(userData));
+      addMessageToChat(messageText, "sent");
+      chatInput.value = "";
+    }
+  });
+
+  const addMessageToChat = (message, type) => {
+    const messageDiv = document.createElement("div");
+    messageDiv.textContent = message;
+    messageDiv.classList.add(type);
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  };
 });
